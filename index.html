@@ -61,6 +61,11 @@ footer{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
 .seg5 .sb{padding:10px 14px 2px}
 .seg5 .sb p{margin:0 0 10px}
 .hint{font-size:22px;font-weight:bold;text-align:center;color:#1F6F4A;padding:16px 0}
+.pf-row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.pf-item{width:70px}
+.pf-item img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid #D5DDD8;display:block}
+.pf-ph{width:70px;height:70px;border-radius:8px;background:#E5E5E5;border:1px solid #D5DDD8}
+.pf-item small{display:block;font-size:12px;line-height:1.3;color:#555555;margin-top:3px}
 </style>
 </head>
 <body>
@@ -68,31 +73,31 @@ footer{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
 <h1 style="text-align:center;margin-top:20px">好康傳出來</h1><p style="text-align:center;font-size:22px;margin-bottom:22px">做得好，也要有人知道</p><a class="btn col" style="background:#1C5D8C;min-height:84px" href="nine/"><span>①　攤位定位九宮格</span><small>3 個問題，找出你的主打</small></a><a class="callout" id="last" style="display:none;text-decoration:none;color:#1A1A1A" href="nine/"></a><a class="btn col" style="background:#2E8B57;min-height:84px" href="mingtian/"><span>②　明天三步</span><small>明天開攤，只要做這三件事</small></a><a class="btn col" style="background:#3C9D6B;min-height:84px" href="jiaobenka/"><span>③　腳本卡</span><small>照著唸就能拍</small></a><a class="btn col" style="background:#1F6F4A;min-height:84px" href="qishoubao/"><span>④　起手包</span><small>完整講義：題材、鉤子、字幕、AI 提示詞</small></a><a class="btn col" style="background:#06C755;min-height:84px" href="https://line.me/R/ti/p/@898edwac"><span>⑤　加 LINE／回 LINE</span><small>有問題直接傳給 Eric</small></a><footer style="margin-top:28px;border-top:2px solid #DDE9E2;padding-top:16px">好康傳出來｜做得好，也要有人知道</footer>
 </div>
 <script>var STALLS = {
-  fish:{ label:"魚攤", kind:"魚攤", name:"魚攤",
+  fish:{ label:"魚攤", kind:"魚攤", name:"魚攤", goods:"魚", short:["教挑魚","報今天貨","跟我進貨","殺魚示範","邊做邊聊","殺魚進步史","老魚販觀點","熟客留魚","接手第一課"],
     cells:["教你一眼認出新鮮魚","用聊天的口氣報「今天早上從基隆載回來的魚」","跟著我凌晨進貨的一天",
            "現場殺魚、片魚示範，教你怎麼下刀","邊處理邊問客人：「要清蒸還是煎？」","第一次學殺魚的失敗集錦，到現在多快",
            "三十年老魚販眼中，魚市場的變化","熟客阿姨每週五都來，我先幫她留那一條","接手爸爸的魚攤，學到的第一堂課"],
     diff:["每天凌晨親自去挑魚","殺魚片魚的手藝，當場示範給你看","跟熟客三十年的交情"],
     boss:["教你挑魚","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  pork:{ label:"豬肉攤", kind:"豬肉攤", name:"豬肉攤",
+  pork:{ label:"豬肉攤", kind:"豬肉攤", name:"豬肉攤", goods:"豬肉", short:["教看豬肉","報今天貨","跟我批肉","部位教學","邊切邊聊","剁骨進步史","老肉販觀點","熟客留肉","接手第一課"],
     cells:["教你看豬肉：顏色、油脂、彈性三招","用聊天口氣報「今早現宰的溫體豬」","跟著我凌晨去批肉的一天",
            "示範這塊肉是哪個部位、適合怎麼煮","邊切邊問客人：「要炒的還是燉的？」","第一次學剁排骨的狼狽，到現在多快",
            "三十年老肉販看豬肉行情的變化","熟客阿姨每週都來，我先留好那塊肉","接手爸爸的肉攤，學到的第一堂課"],
     diff:["每天一早親自挑的溫體豬肉","切肉、剁骨的功夫，當場示範","跟熟客三十年的交情"],
     boss:["教你買肉","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  veg:{ label:"蔬果攤", kind:"蔬果攤", name:"蔬果攤",
+  veg:{ label:"蔬果攤", kind:"蔬果攤", name:"蔬果攤", goods:"菜", short:["教挑菜","報今天甜","跟我批菜","切果示範","邊裝邊教","切瓜進步史","看季節變化","熟客留菜","接手第一課"],
     cells:["教你挑菜：葉子、菜梗、切口看新鮮","用聊天口氣說「今天哪種菜最甜」","跟著我半夜去批菜的一天",
            "示範水果怎麼切、怎麼包，客人好帶","邊裝袋邊教：「這個回家這樣煮」","學切西瓜的失敗集錦，到現在多快",
            "三十年老菜販看季節與菜價的變化","熟客每週都來，我先幫他留最嫩的","接手家裡的菜攤，客人一開始不信我"],
     diff:["每天天沒亮就去挑的當季蔬果","切水果、分裝的巧思，當場示範","跟熟客三十年的交情"],
     boss:["教你挑菜挑水果","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  food:{ label:"熟食小吃", kind:"熟食小吃攤", name:"熟食小吃",
+  food:{ label:"熟食小吃", kind:"熟食小吃攤", name:"熟食小吃", goods:"滷肉飯", short:["教看五花","報剛出鍋","挑料三標準","滷汁火候","邊盛邊聊","滷汁挑戰","三十年滷汁","老樣子","二代接手"],
     cells:["教你看滷肉用的五花，肥瘦怎麼分才好吃","今天哪一道剛出鍋，用聊天口氣說","我每天挑食材的三個標準",
            "滷汁怎麼顧、火候怎麼抓","邊盛菜邊問：「要不要多淋一點滷汁？」","三十天挑戰，把阿嬤的滷汁學到像",
            "這鍋滷汁跟了我三十年","「老樣子」——客人不用開口我就知道","第二代接手，客人一開始不信任我"],
     diff:["每天親自挑的食材，份量給足","滷汁的火候，一鍋顧三十年","客人一坐下我就知道他要什麼"],
     boss:["教你怎麼吃得好","記得你、像鄰居一樣的","拚著學、天天進步"] },
-  other:{ label:"其他店家（通用）", kind:"店家", name:"其他店家",
+  other:{ label:"其他店家（通用）", kind:"店家", name:"其他店家", goods:"東西", short:["教分好壞","報本週新貨","開店一天","拿手示範","邊做邊問","新手進步史","這行的變化","熟客默契","接手第一課"],
     cells:["教你的客人怎麼分辨好東西和便宜貨","用聊天口氣說你的店這禮拜進了什麼","跟著我，從開店到打烊的一天",
            "現場示範你最拿手的一個步驟，邊做邊講","邊做邊問客人：「你想要怎樣的？」","剛學這行的失敗集錦，到現在進步多少",
            "做這行三十年，看這行的變化","熟客一進門，我就知道他要什麼","接手家裡的店，學到的第一堂課"],
