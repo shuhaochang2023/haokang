@@ -3,54 +3,71 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>好康傳出來｜攤位定位九宮格</title>
+<title>好康傳出來｜首頁</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{background:#FFFFFF;color:#1A1A1A;font-family:"Iansui","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:20px;line-height:1.6;-webkit-text-size-adjust:100%;overflow-x:hidden}
-.wrap{max-width:560px;margin:0 auto;padding:16px 16px 40px}
-.progress{font-size:20px;font-weight:bold;color:#1F6F4A;text-align:center;padding:8px 0 4px}
-.bar{height:8px;background:#DDE9E2;border-radius:4px;margin:0 0 20px;overflow:hidden}
-.bar i{display:block;height:100%;background:#1F6F4A}
-h1{font-size:26px;line-height:1.4;margin:0 0 16px;color:#1A1A1A}
-h2{font-size:26px;line-height:1.4;margin:0 0 12px}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 40px}
+.top{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:10px 0}
+h1{font-size:28px;line-height:1.4;margin:6px 0 14px;color:#1A1A1A}
+h2{font-size:26px;line-height:1.4;margin:0 0 12px;color:#1F6F4A}
+h3{font-size:22px;line-height:1.4;margin:22px 0 8px;color:#1F6F4A}
 p{margin:0 0 12px}
-select{width:100%;height:60px;font-size:22px;font-family:inherit;color:#1A1A1A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:12px;padding:0 12px}
+b{color:#14532D}
+.r{color:#E8590C;font-weight:bold}
 .btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:64px;margin:0 0 14px;padding:10px 14px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;text-decoration:none;cursor:pointer}
 .btn small{display:block;font-size:18px;font-weight:normal;margin-top:2px}
-.btn.choice{flex-direction:column;background:#FFFFFF;color:#1A1A1A;border:3px solid #1F6F4A;min-height:84px}
-.btn.choice small{color:#1A1A1A}
-.btn.choice:active{background:#DDE9E2}
+.btn.col{flex-direction:column}
 .btn.line{background:#06C755}
 .btn.orange{background:#E8590C}
 .btn.ghost{background:#FFFFFF;color:#1F6F4A;border:3px solid #1F6F4A}
-.back{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:12px 4px;background:none;border:0;font-family:inherit;cursor:pointer}
-.big{font-size:26px;font-weight:bold;line-height:1.5;color:#1A1A1A;background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:12px 14px;margin:0 0 16px}
-.big b{color:#E8590C}
-.grid{display:grid;grid-template-columns:34px repeat(3,minmax(0,1fr));gap:6px;margin:0 0 18px}
-.gh{font-size:15px;font-weight:bold;color:#1F6F4A;text-align:center;line-height:1.3;padding:2px 0;display:flex;align-items:center;justify-content:center}
-.cell{font-size:15px;line-height:1.45;padding:8px 5px;border-radius:8px;background:#EEF5F0;color:#1A1A1A;word-break:break-all;overflow-wrap:anywhere;display:flex;align-items:center;min-height:96px}
-.cell.main{background:#E8590C;color:#FFFFFF;font-weight:bold}
-.cell.alt{border:3px dashed #E8590C}
-.legend{font-size:18px;margin:-8px 0 16px}
-.card{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 16px;background:#FFFFFF}
-.card .t{font-size:22px;font-weight:bold;color:#1F6F4A;margin:0 0 6px}
-.two li{margin:0 0 8px}
-.two ol{padding-left:26px;margin:0}
-.tip{font-size:18px;text-align:center;margin:8px 0 16px}
-footer{font-size:18px;text-align:center;color:#1F6F4A;border-top:2px solid #DDE9E2;margin-top:28px;padding-top:16px}
+.callout{font-size:22px;font-weight:bold;line-height:1.5;color:#1A1A1A;background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:12px 14px;margin:0 0 16px}
+.callout b{color:#B03A00}
+.note{font-size:18px;color:#555555;margin:0 0 12px}
+.card{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF;overflow:hidden}
+.card .ct{font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;padding:8px 14px;display:flex;align-items:center}
+.card .ct .n{font-size:40px;line-height:1;margin-right:12px;flex:none}
+.card .cb{padding:12px 14px 4px;background:#F3F8F5}
+.card .cb p{margin:0 0 10px}
+.ci{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 16px}
+.ci .t{font-size:22px;font-weight:bold;color:#1F6F4A;margin:0 0 6px}
+details.chap{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF}
+details.chap>summary{list-style:none;cursor:pointer;min-height:64px;padding:12px 14px;font-size:24px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+details.chap>summary::-webkit-details-marker{display:none}
+details.chap>summary::after{content:"＋ 打開";font-size:18px;font-weight:normal;flex:none;margin-left:10px}
+details.chap[open]>summary{border-radius:10px 10px 0 0}
+details.chap[open]>summary::after{content:"－ 收起"}
+details.chap>.body{padding:14px 12px 4px}
+.chk{display:flex;align-items:flex-start;margin:0 0 12px;font-size:20px}
+.chk input{width:30px;height:30px;flex:none;margin:2px 12px 0 0;accent-color:#1F6F4A}
+.chk label{display:block}
+.code{font-family:"Menlo","Consolas","Iansui","PingFang TC",monospace;font-size:17px;line-height:1.6;background:#F1F1F1;border-left:6px solid #6B7F8E;border-radius:8px;padding:12px;margin:0 0 10px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;color:#222222}
+.copy{background:#1F6F4A}
+.copy.ok{background:#E8590C}
+.footnav{border-top:2px solid #DDE9E2;margin-top:28px;padding-top:16px}
+footer{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.seg button{min-height:72px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.3;color:#1F6F4A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:14px;padding:6px;cursor:pointer}
+.seg button[aria-pressed=true]{background:#1F6F4A;color:#FFFFFF}
+.sc{margin:0 0 20px}
+.sc[hidden]{display:none}
+.sc .st{font-size:26px;font-weight:bold;line-height:1.4;color:#1F6F4A;margin:0 0 10px}
+.seg5{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 12px;overflow:hidden;background:#F3F8F5}
+.seg5 .sh{background:#1F6F4A;color:#FFFFFF;font-size:22px;font-weight:bold;padding:6px 14px}
+.seg5 .sh small{font-size:18px;font-weight:normal;margin-left:8px}
+.seg5 .sb{padding:10px 14px 2px}
+.seg5 .sb p{margin:0 0 10px}
+.hint{font-size:22px;font-weight:bold;text-align:center;color:#1F6F4A;padding:16px 0}
 </style>
 </head>
 <body>
-<div class="wrap"><div id="app"></div>
-<footer>好康傳出來｜做得好，也要有人知道</footer></div>
-<script>
-// ===== 資料區：日後要加新行業，複製一個區塊即可 =====
-// cells 依序：1A 1B 1C 2A 2B 2C 3A 3B 3C（列＝東西好/手藝好/人情濃；行＝師傅/鄰居/年輕老闆）
-// diff：一句話中「最不一樣的是」，依列 1/2/3；boss：「你會看到一個」，依行 A/B/C
-var STALLS = {
+<div class="wrap">
+<h1 style="text-align:center;margin-top:20px">好康傳出來</h1><p style="text-align:center;font-size:22px;margin-bottom:22px">做得好，也要有人知道</p><a class="btn col" style="background:#1C5D8C;min-height:84px" href="nine/"><span>①　攤位定位九宮格</span><small>3 個問題，找出你的主打</small></a><a class="callout" id="last" style="display:none;text-decoration:none;color:#1A1A1A" href="nine/"></a><a class="btn col" style="background:#2E8B57;min-height:84px" href="mingtian/"><span>②　明天三步</span><small>明天開攤，只要做這三件事</small></a><a class="btn col" style="background:#3C9D6B;min-height:84px" href="jiaobenka/"><span>③　腳本卡</span><small>照著唸就能拍</small></a><a class="btn col" style="background:#1F6F4A;min-height:84px" href="qishoubao/"><span>④　起手包</span><small>完整講義：題材、鉤子、字幕、AI 提示詞</small></a><a class="btn col" style="background:#06C755;min-height:84px" href="https://line.me/R/ti/p/@898edwac"><span>⑤　加 LINE／回 LINE</span><small>有問題直接傳給 Eric</small></a><footer style="margin-top:28px;border-top:2px solid #DDE9E2;padding-top:16px">好康傳出來｜做得好，也要有人知道</footer>
+</div>
+<script>var STALLS = {
   fish:{ label:"魚攤", kind:"魚攤", name:"魚攤",
     cells:["教你一眼認出新鮮魚","用聊天的口氣報「今天早上從基隆載回來的魚」","跟著我凌晨進貨的一天",
            "現場殺魚、片魚示範，教你怎麼下刀","邊處理邊問客人：「要清蒸還是煎？」","第一次學殺魚的失敗集錦，到現在多快",
@@ -82,107 +99,17 @@ var STALLS = {
     diff:["你的店最拿手的一樣東西","你親手做出來的功夫","跟你的客人多年的交情"],
     boss:["教客人怎麼選","像街坊鄰居一樣愛聊天","拚著學、天天進步"] }
 };
-var ORDER = ["fish","pork","veg","food","other"];
-var ROWS = ["東西好","手藝好","人情濃"];
-var ROWSHORT = ["好貨","手藝","人情"];
-var COLS = ["懂行的師傅","貼心的鄰居","拚勁的年輕老闆"];
-var COLSHORT = ["懂行師傅","貼心鄰居","拚勁老闆"];
-var Q2 = [["東西好","貨源、新鮮、份量"],["手藝好","怎麼切、怎麼熬、怎麼做"],["人情濃","幾年了、誰傳的、熟客故事"]];
-var Q3 = [["懂行的師傅","教客人怎麼挑、怎麼做"],["貼心的鄰居","像街坊聊天"],["拚勁的年輕老闆","邊做邊學、記錄成長"]];
-var SCRIPT_URL = "https://drive.google.com/file/d/1QUEIKFPOgBNRCFOd1_j7qGjzR8kiHlZ7/view";
-var LINE_URL = "https://line.me/R/oaMessage/@898edwac/?";
-var KEY = "haokang_grid_v1";
-
-var state = { step:1, stall:"fish", r:null, c:null };
-var app = document.getElementById("app");
-
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify({stall:state.stall,r:state.r,c:state.c})); }catch(e){} }
-function clearSaved(){ try{ localStorage.removeItem(KEY); }catch(e){} }
-function load(){
-  try{
-    var v = JSON.parse(localStorage.getItem(KEY)||"null");
-    if(v && STALLS[v.stall] && v.r>=0 && v.r<3 && v.c>=0 && v.c<3){ return v; }
-  }catch(e){}
-  return null;
-}
-function esc(s){ return String(s).replace(/[&<>"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch];}); }
-
-function head(n){
-  return '<div class="progress">第 '+n+'／3 題</div><div class="bar"><i style="width:'+(n*100/3)+'%"></i></div>';
-}
-function render(){
-  var h = "";
-  if(state.step===1){
-    h += head(1)+'<h1>你賣什麼？</h1><select id="sel" aria-label="你賣什麼">';
-    for(var i=0;i<ORDER.length;i++){ h+='<option value="'+ORDER[i]+'"'+(ORDER[i]===state.stall?' selected':'')+'>'+esc(STALLS[ORDER[i]].label)+'</option>'; }
-    h += '</select><div style="height:20px"></div><button class="btn" id="next1">下一步</button>';
-  } else if(state.step===2){
-    h += head(2)+'<h1>你的東西好在哪？</h1>';
-    for(var i=0;i<3;i++){ h+='<button class="btn choice" data-r="'+i+'">'+Q2[i][0]+'<small>'+Q2[i][1]+'</small></button>'; }
-    h += '<button class="back" id="back">← 上一步</button>';
-  } else if(state.step===3){
-    h += head(3)+'<h1>你想當哪種老闆？</h1>';
-    for(var i=0;i<3;i++){ h+='<button class="btn choice" data-c="'+i+'">'+Q3[i][0]+'<small>'+Q3[i][1]+'</small></button>'; }
-    h += '<button class="back" id="back">← 上一步</button>';
-  } else { h += resultHTML(); }
-  app.innerHTML = h;
-  window.scrollTo(0,0);
-  bind();
-}
-function pieces(){
-  var S = STALLS[state.stall], r=state.r, c=state.c;
-  var altC = (c===1)?0:1;
-  var sentence = "我是"+S.kind+"，最不一樣的是"+S.diff[r]+"，你會看到一個"+S.boss[c]+"的老闆。";
-  return { S:S, main:S.cells[r*3+c], alt:S.cells[r*3+altC], altC:altC, sentence:sentence };
-}
-function resultHTML(){
-  var p = pieces(), S=p.S, r=state.r, c=state.c, h="";
-  h += '<div class="big">你的主打：<b>'+esc(p.main)+'</b></div>';
-  h += '<div class="grid"><div></div>';
-  for(var j=0;j<3;j++){ h+='<div class="gh">'+COLSHORT[j]+'</div>'; }
-  for(var i=0;i<3;i++){
-    h += '<div class="gh">'+ROWSHORT[i]+'</div>';
-    for(var j=0;j<3;j++){
-      var cls = "cell"+((i===r&&j===c)?" main":((i===r&&j===p.altC)?" alt":""));
-      h += '<div class="'+cls+'">'+esc(S.cells[i*3+j])+'</div>';
-    }
-  }
-  h += '</div><p class="legend">橘色底＝主打　橘色虛線框＝備用</p>';
-  h += '<div class="card"><p class="t">你的一句話定位</p><p style="margin:0">'+esc(p.sentence)+'</p></div>';
-  h += '<div class="card two"><p class="t">這禮拜拍這兩支</p><ol><li><b>主打：</b>'+esc(p.main)+'</li><li><b>備用：</b>'+esc(p.alt)+'</li></ol></div>';
-  h += '<a class="btn orange" href="'+SCRIPT_URL+'" target="_blank" rel="noopener">📝 看腳本卡，照唸就能拍</a>';
-  h += '<a class="btn line" href="'+esc(lineLink())+'">💬 傳給 Eric</a>';
-  h += '<p class="tip">想存起來？同時按電源鍵＋音量鍵截圖</p>';
-  h += '<button class="btn ghost" id="redo">重新選一次</button>';
-  return h;
-}
-function lineText(){
-  var p = pieces();
-  return "我填好九宮格了！\n攤位："+STALLS[state.stall].name+"\n主打："+p.main+"\n一句話："+p.sentence;
-}
-function lineLink(){ return LINE_URL + encodeURIComponent(lineText()); }
-
-function bind(){
-  var q;
-  if((q=document.getElementById("next1"))){ q.onclick=function(){ state.stall=document.getElementById("sel").value; state.step=2; render(); }; }
-  var back=document.getElementById("back");
-  if(back){ back.onclick=function(){ state.step=state.step-1; render(); }; }
-  var bs=document.querySelectorAll("[data-r]");
-  for(var i=0;i<bs.length;i++){ bs[i].onclick=function(){ state.r=+this.getAttribute("data-r"); state.step=3; render(); }; }
-  bs=document.querySelectorAll("[data-c]");
-  for(var k=0;k<bs.length;k++){ bs[k].onclick=function(){ state.c=+this.getAttribute("data-c"); state.step=4; save(); render(); }; }
-  if((q=document.getElementById("redo"))){ q.onclick=function(){ clearSaved(); state={step:1,stall:state.stall,r:null,c:null}; render(); }; }
-}
-// 啟動：hash 僅供測試預覽（#q2 / #q3 / #fish-0-0），正式使用靠 localStorage
+var KEY="haokang_grid_v1";
 (function(){
-  var m = /^#(?:(q[123])|(\w+)-(\d)-(\d))$/.exec(location.hash||"");
-  if(m){
-    if(m[1]){ state.step=+m[1].charAt(1); state.r=0; }
-    else if(STALLS[m[2]]){ state={step:4,stall:m[2],r:+m[3],c:+m[4]}; }
-  } else {
-    var v=load(); if(v){ state={step:4,stall:v.stall,r:v.r,c:v.c}; }
-  }
-  render();
+  try{
+    var v=JSON.parse(localStorage.getItem(KEY)||"null");
+    if(v&&STALLS[v.stall]&&v.r>=0&&v.r<3&&v.c>=0&&v.c<3){
+      var el=document.getElementById("last");
+      el.innerHTML='你上次選的主打：<b></b>　→ 看結果';
+      el.getElementsByTagName("b")[0].textContent=STALLS[v.stall].cells[v.r*3+v.c];
+      el.style.display="block";
+    }
+  }catch(e){}
 })();
 </script>
 </body>
