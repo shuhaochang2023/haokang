@@ -17,7 +17,10 @@ body{background:#FFFFFF;color:#1A1A1A;font-family:"Iansui","PingFang TC","Noto S
 h1{font-size:26px;line-height:1.4;margin:0 0 16px;color:#1A1A1A}
 h2{font-size:26px;line-height:1.4;margin:0 0 12px}
 p{margin:0 0 12px}
-select{width:100%;height:60px;font-size:22px;font-family:inherit;color:#1A1A1A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:12px;padding:0 12px}
+select,input.txt{width:100%;height:60px;font-size:22px;font-family:inherit;color:#1A1A1A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:12px;padding:0 12px}
+label.q{display:block;font-size:20px;margin:18px 0 8px;font-weight:bold}
+.err{color:#B3261E;font-size:18px;margin:8px 0 0}
+.own{background:#FFF7E0!important;color:#1A1A1A!important;border:3px dashed #E8590C!important}
 .btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:64px;margin:0 0 14px;padding:10px 14px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;text-decoration:none;cursor:pointer}
 .btn small{display:block;font-size:18px;font-weight:normal;margin-top:2px}
 .btn.choice{flex-direction:column;background:#FFFFFF;color:#1A1A1A;border:3px solid #1F6F4A;min-height:84px}
@@ -37,6 +40,14 @@ select{width:100%;height:60px;font-size:22px;font-family:inherit;color:#1A1A1A;b
 .cell.main{background:#E8590C;color:#FFFFFF}
 .cell.main::after{content:"★主打";position:absolute;top:3px;right:4px;font-size:12px;background:#FFFFFF;color:#E8590C;border-radius:6px;padding:0 4px;line-height:1.5}
 .cell.alt{border:3px dashed #E8590C}
+.cut{border:3px solid #1F6F4A;border-radius:16px;overflow:hidden;margin:0 0 16px;background:#FFFFFF}
+.cut .h{background:#1F6F4A;color:#FFFFFF;font-weight:bold;font-size:20px;padding:8px 14px}
+.cut .h small{font-weight:normal;font-size:17px;margin-left:6px}
+.cut .pic{display:flex;gap:12px;align-items:center;padding:12px 14px;background:#F4F8F5}
+.cut .pic svg{width:120px;height:auto;flex:none}
+.cut .pic p{margin:0;font-size:19px;line-height:1.5}
+.cut .say{padding:14px;font-size:26px;line-height:1.6;font-weight:bold}
+.cut .say .lb{display:block;font-size:17px;font-weight:normal;color:#555;margin-bottom:4px}
 .seg{border:3px solid #1F6F4A;border-radius:12px;margin:0 0 12px;overflow:hidden}
 .seg .h{background:#1F6F4A;color:#FFFFFF;font-weight:bold;font-size:20px;padding:6px 12px}
 .seg .h small{font-weight:normal;font-size:16px;margin-left:6px}
@@ -95,7 +106,8 @@ var STALLS = {
     diff:["你的店最拿手的一樣東西","你親手做出來的功夫","跟你的客人多年的交情"],
     boss:["教客人怎麼選","像街坊鄰居一樣愛聊天","拚著學、天天進步"] }
 };
-var ORDER = ["fish","pork","veg","food","other"];
+var ORDER = ["fish","pork","veg","food","other","custom"];
+var CUSTOM_LABEL = "✏️ 都不是，我自己打字";
 var ROWS = ["東西好","手藝好","人情濃"];
 var ROWSHORT = ["好貨","手藝","人情"];
 var COLS = ["懂行的師傅","貼心的鄰居","拚勁的年輕老闆"];
@@ -103,24 +115,71 @@ var COLSHORT = ["懂行師傅","貼心鄰居","拚勁老闆"];
 var Q2 = [["東西好","貨源、新鮮、份量"],["手藝好","怎麼切、怎麼熬、怎麼做"],["人情濃","幾年了、誰傳的、熟客故事"]];
 var Q3 = [["懂行的師傅","教客人怎麼挑、怎麼做"],["貼心的鄰居","像街坊聊天"],["拚勁的年輕老闆","邊做邊學、記錄成長"]];
 // 腳本範本：TPL[r][c] = 5 段台詞。{貨}{攤} 自動帶入；【】是要換成自己的
-var SEGS = [["0–3 秒","開頭吆喝","",'近景，對著鏡頭講'],["3–8 秒","勾起期待","",'拍到腰部以上，背後是攤位'],
-            ["8–17 秒","講重點","補拍",'手部特寫，邊做邊講'],["17–25 秒","更厲害的","補拍",'拍給客人看，或拍整個攤位'],
-            ["25–30 秒","收尾小事","",'近景，微笑看鏡頭']];
+// ===== 腳本規則（固定）=====
+// 成片 20 秒 = 片頭 1 秒 + 5 個 Cut（共 16 秒）+ 片尾 3 秒。一個 Cut 拍一段、講一句，一句最多 14 個字（約 3 秒）。
+var SEGS = [["0–3 秒","開頭吆喝","",'近景，對著鏡頭講'],["3–6 秒","勾起期待","",'拍到腰部以上，背後是攤位'],
+            ["6–10 秒","講重點","",'手部特寫，邊做邊講'],["10–13 秒","更厲害的","",'拍給客人看，或拍整個攤位'],
+            ["13–16 秒","收尾小事","",'近景，微笑看鏡頭']];
 var TPL = [
- [ ["買{貨}最怕買錯，我教你三招。","我賣{貨}【二十】年，今天一次講給你聽。","第一看【顏色】，第二摸【彈性】，第三聞【味道】。","三招都過了，我才敢賣給你。","學會了嗎？留言「學到了」，下次教你別的。"],
+ [ ["買{貨}最怕買錯，我教你三招。","我賣{貨}【二十】年，今天一次講給你聽。","一看【顏色】，二摸【彈性】，三聞【味道】。","三招都過了，我才敢賣給你。","學會了嗎？留言「學到了」。"],
    ["今天這批{貨}真的漂亮！","【今天一早】剛到的，我自己先挑過。","你看這個【顏色】，這種的最好吃。","晚上要煮什麼？我幫你挑最適合的。","明天來攤位，跟我說「看到影片」。"],
-   ["我接這個{攤}第【三】年，帶你看我怎麼挑{貨}。","以前我根本不會挑，被罵了好幾次。","現在我知道，要看【這裡】、摸【這裡】。","今天又學到一招：【好的會比較重】。","跟著我一起學，留言「加油」給我！"] ],
+   ["接手第【三】年，看我怎麼挑{貨}。","以前我根本不會挑，被罵了好幾次。","現在我知道，要看【這裡】、摸【這裡】。","今天又學到一招：【好的會比較重】。","跟著我一起學，留言「加油」給我！"] ],
  [ ["{貨}要好吃，關鍵在這一步。","我做了【二十】年，這一步從來不省。","先【切】，再【洗】，最後【這樣處理】。","你在家也可以這樣做，味道差很多。","想看完整做法？留言「想學」。"],
-   ["要怎麼煮？跟我說，我幫你處理好。","很多人不知道，這樣處理回家比較好煮。","你看，我先【這樣】，再【這樣】。","好了！拿回去直接下鍋就可以。","下次來攤位，直接說「跟影片一樣」。"],
+   ["要怎麼煮？跟我說，我幫你處理好。","這樣處理，回家比較好煮。","你看，我先【這樣】，再【這樣】。","好了！拿回去直接下鍋就可以。","下次來攤位，直接說「跟影片一樣」。"],
    ["我第一次做這個，做得超慘。","那時候【手很慢】，客人都等到不耐煩。","練了【三】個月，現在是這樣——","從【十分鐘】變【一分鐘】，自己都嚇一跳。","幫我留言「進步了」，我會繼續練！"] ],
- [ ["在這個市場【三十】年，我看過好多變化。","以前的人買{貨}，都會先問一件事。","就是【怎麼挑】，到現在我還是這樣教。","東西會變，做生意的道理沒變：【實在】。","想聽老故事？留言「想聽」，我慢慢講。"],
-   ["【王阿姨】每個禮拜都來，你知道她都買什麼嗎？","我都先幫她留好，她一來就拿走。","做生意久了，客人就像家人一樣。","你第一次來，我也會記得你要什麼。","來攤位跟我打聲招呼，說「看到影片」！"],
-   ["我是這個{攤}的第【二】代。","一開始客人都不信我，只找我【爸爸】。","我每天都來，把【爸爸】教的一樣一樣做好。","現在，熟客開始會叫我名字了。","幫我跟【爸爸】說聲加油，留言「加油」！"] ]
+ [ ["在市場【三十】年，看過好多變化。","以前的人買{貨}，都會先問一件事。","就是【怎麼挑】，到現在我還是這樣教。","東西會變，道理沒變：【實在】。","想聽老故事？留言「想聽」，我慢慢講。"],
+   ["【王阿姨】每週來，你猜她買什麼？","我都先幫她留好，她一來就拿走。","做生意久了，客人就像家人一樣。","你第一次來，我也會記得你要什麼。","來攤位跟我打聲招呼，說「看到影片」！"],
+   ["我是這個{攤}的第【二】代。","一開始客人都不信我，只找我【爸爸】。","把【爸爸】教的，一樣一樣做好。","現在，熟客開始會叫我名字了。","幫我跟【爸爸】說聲加油，留言「加油」！"] ]
 ];
-function fill(s){ var S=STALLS[state.stall]; return s.replace(/\{貨\}/g,S.goods).replace(/\{攤\}/g,S.kind); }
+// 自己打字的攤位借用「其他店家」的九宮格；攤位名、賣的東西、特色都可以用攤商自己打的
+function base(){ return STALLS[state.stall==="custom"?"other":state.stall]; }
+function kind(){ return state.kind || base().kind; }
+function goods(){ return state.goods || base().goods; }
+function fill(s){ return s.replace(/\{貨\}/g,goods()).replace(/\{攤\}/g,kind()); }
 function mark(s){ return esc(s).replace(/【([^】]*)】/g,'<span class="mk">【$1】</span>'); }
+// 每一 Cut 的拍法示意圖（手機直拍畫面）
+function shotSVG(k){
+  var skin="#F2C9A0", g="#1F6F4A", o="#E8590C", ink="#1A1A1A";
+  var awn='<g>'+[0,1,2,3,4,5].map(function(i){return '<rect x="'+(i*30)+'" y="0" width="30" height="34" fill="'+(i%2?"#FFFFFF":o)+'"/>';}).join("")+'</g>';
+  var face=function(cx,cy,r,smile){ return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+skin+'"/>'
+    +'<circle cx="'+(cx-r*0.35)+'" cy="'+(cy-r*0.1)+'" r="'+(r*0.08)+'" fill="'+ink+'"/><circle cx="'+(cx+r*0.35)+'" cy="'+(cy-r*0.1)+'" r="'+(r*0.08)+'" fill="'+ink+'"/>'
+    +(smile?'<path d="M'+(cx-r*0.35)+' '+(cy+r*0.3)+' Q'+cx+' '+(cy+r*0.65)+' '+(cx+r*0.35)+' '+(cy+r*0.3)+'" stroke="'+ink+'" stroke-width="'+(r*0.08)+'" fill="none" stroke-linecap="round"/>'
+           :'<ellipse cx="'+cx+'" cy="'+(cy+r*0.4)+'" rx="'+(r*0.18)+'" ry="'+(r*0.14)+'" fill="'+ink+'"/>'); };
+  var fish='<g><ellipse cx="90" cy="175" rx="52" ry="24" fill="#7FA6C9"/><path d="M138 175 L165 155 L165 195 Z" fill="#7FA6C9"/><circle cx="58" cy="170" r="5" fill="'+ink+'"/></g>';
+  var body={
+    0: face(90,135,58,false)+'<path d="M20 320 Q20 215 90 215 Q160 215 160 320 Z" fill="'+g+'"/>'
+       +'<path d="M150 95 q14 12 0 24 M160 85 q22 22 0 44" stroke="'+o+'" stroke-width="5" fill="none" stroke-linecap="round"/>',
+    1: awn+'<rect x="0" y="190" width="180" height="130" fill="#C9A77C"/>'+face(90,120,30,false)
+       +'<path d="M45 320 L50 170 Q90 150 130 170 L135 320 Z" fill="'+g+'"/>',
+    2: fish+'<path d="M0 320 L40 205 Q58 190 72 205 L60 320 Z" fill="'+skin+'"/><path d="M180 320 L140 205 Q122 190 108 205 L120 320 Z" fill="'+skin+'"/>'
+       +'<circle cx="90" cy="175" r="72" fill="none" stroke="'+o+'" stroke-width="5" stroke-dasharray="10 8"/>',
+    3: awn+face(90,110,20,false)+'<rect x="68" y="130" width="44" height="60" fill="'+g+'"/>'
+       +'<rect x="0" y="170" width="180" height="60" fill="#C9A77C"/>'
+       +[25,55,85,115,145].map(function(x){return '<circle cx="'+x+'" cy="165" r="12" fill="'+(x%2?o:"#7FA6C9")+'"/>';}).join("")
+       +'<circle cx="40" cy="265" r="22" fill="#555"/><path d="M0 320 Q0 285 40 285 Q80 285 80 320 Z" fill="#555"/>',
+    4: face(90,135,58,true)+'<path d="M20 320 Q20 215 90 215 Q160 215 160 320 Z" fill="'+g+'"/>'
+  }[k];
+  return '<svg viewBox="0 0 180 320" role="img" aria-label="'+esc(SEGS[k][3])+'"><defs><clipPath id="ph'+k+'"><rect width="180" height="320" rx="18"/></clipPath></defs>'
+    +'<g clip-path="url(#ph'+k+')"><rect width="180" height="320" fill="#EAF2EC"/>'+body+'</g>'
+    +'<rect x="2" y="2" width="176" height="316" rx="18" fill="none" stroke="'+ink+'" stroke-width="4"/></svg>';
+}
+function cutHTML(i){
+  var lines=TPL[state.r][state.c], h='';
+  h+='<div class="progress">第 '+(i+1)+'／5 句</div><div class="bar"><i style="width:'+((i+1)*20)+'%"></i></div>';
+  h+='<div class="cut"><div class="h">第 '+(i+1)+' 句　'+SEGS[i][1]+'<small>'+SEGS[i][0]+'</small></div>';
+  h+='<div class="pic">'+shotSVG(i)+'<p><b>📷 怎麼拍</b><br>'+SEGS[i][3]+'</p></div>';
+  h+='<div class="say"><span class="lb">🗣 這一句要講</span>「'+mark(fill(lines[i]))+'」</div></div>';
+  h+='<p class="tip">【】裡換成你自己的。沒發生過的事不要唸。一句拍一段就好，講錯重拍這一句。</p>';
+  if(i<4){ h+='<button class="btn" id="nextcut">✅ 這句拍好了，下一句</button>'; }
+  else {
+    h+='<a class="btn line" href="'+esc(LINE_CHAT)+'">✅ 5 句都拍好了，傳到 LINE</a>';
+    h+='<p class="tip">打開 LINE 後點選單的「④ 交作業」，照順序一句一句傳，最後按「傳好了」。我們會幫你接成一支、上字幕。</p>';
+  }
+  h+='<button class="back" id="prevcut">'+(i?'← 上一句':'← 回九宮格')+'</button>';
+  return h;
+}
 function scriptHTML(){
-  var lines=TPL[state.r][state.c], h='<h2 style="margin-top:8px">照這個拍，30 秒就好</h2>';
+  var lines=TPL[state.r][state.c], h='<h2 style="margin-top:8px">照這個拍，20 秒就好</h2>';
   h+='<div class="notice">今天先拍 0–8 秒和 25–30 秒，中間那段回攤位再補</div>';
   for(var i=0;i<5;i++){
     h+='<div class="seg"><div class="h">'+SEGS[i][0]+'　'+SEGS[i][1]+(SEGS[i][2]?'<small>（'+SEGS[i][2]+'）</small>':'')+'</div>';
@@ -131,22 +190,28 @@ function scriptHTML(){
 }
 var SCRIPT_URL = "https://drive.google.com/file/d/1QUEIKFPOgBNRCFOd1_j7qGjzR8kiHlZ7/view";
 var LINE_URL = "https://line.me/R/oaMessage/@898edwac/?";
+var LINE_CHAT = "https://line.me/R/ti/p/@898edwac";
 var KEY = "haokang_grid_v1";
 
-var state = { step:1, stall:"fish", r:null, c:null };
+var state = { step:1, stall:"fish", kind:"", goods:"", diffText:"", bossText:"", own:false, r:null, c:null };
 var app = document.getElementById("app");
 
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify({stall:state.stall,r:state.r,c:state.c})); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({stall:state.stall,kind:state.kind,goods:state.goods,diffText:state.diffText,bossText:state.bossText,r:state.r,c:state.c,step:state.step,li:state.li||0})); }catch(e){} }
 function clearSaved(){ try{ localStorage.removeItem(KEY); }catch(e){} }
 function load(){
   try{
     var v = JSON.parse(localStorage.getItem(KEY)||"null");
-    if(v && STALLS[v.stall] && v.r>=0 && v.r<3 && v.c>=0 && v.c<3){ return v; }
+    if(v && (STALLS[v.stall]||v.stall==="custom") && v.r>=0 && v.r<3 && v.c>=0 && v.c<3){ return v; }
   }catch(e){}
   return null;
 }
 function esc(s){ return String(s).replace(/[&<>"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch];}); }
 
+function ownHTML(field,label,ph){
+  if(!state.own){ return '<button class="btn choice own" id="own">✏️ 都不像，我自己寫</button>'; }
+  return '<label class="q" for="owntxt">'+label+'</label><input class="txt" id="owntxt" maxlength="20" placeholder="'+esc(ph)+'" value="'+esc(state[field])+'">'
+       + '<p class="err" id="err"></p><div style="height:12px"></div><button class="btn" id="ownnext" data-field="'+field+'">下一步</button>';
+}
 function head(n){
   return '<div class="progress">第 '+n+'／3 題</div><div class="bar"><i style="width:'+(n*100/3)+'%"></i></div>';
 }
@@ -154,25 +219,32 @@ function render(){
   var h = "";
   if(state.step===1){
     h += head(1)+'<h1>你賣什麼？</h1><select id="sel" aria-label="你賣什麼">';
-    for(var i=0;i<ORDER.length;i++){ h+='<option value="'+ORDER[i]+'"'+(ORDER[i]===state.stall?' selected':'')+'>'+esc(STALLS[ORDER[i]].label)+'</option>'; }
-    h += '</select><div style="height:20px"></div><button class="btn" id="next1">下一步</button>';
+    for(var i=0;i<ORDER.length;i++){ var o=ORDER[i]; h+='<option value="'+o+'"'+(o===state.stall?' selected':'')+'>'+esc(o==="custom"?CUSTOM_LABEL:STALLS[o].label)+'</option>'; }
+    h += '</select>';
+    if(state.stall==="custom"){
+      h += '<label class="q" for="kind">你的店叫什麼？</label><input class="txt" id="kind" maxlength="10" placeholder="例如：雞肉攤、麵包店" value="'+esc(state.kind)+'">';
+    }
+    h += '<label class="q" for="goods">你主要賣什麼？（可以不填）</label><input class="txt" id="goods" maxlength="8" placeholder="例如：'+esc(base().goods)+'" value="'+esc(state.goods)+'">';
+    h += '<p class="err" id="err"></p><div style="height:12px"></div><button class="btn" id="next1">下一步</button>';
   } else if(state.step===2){
     h += head(2)+'<h1>你的東西好在哪？</h1>';
     for(var i=0;i<3;i++){ h+='<button class="btn choice" data-r="'+i+'">'+Q2[i][0]+'<small>'+Q2[i][1]+'</small></button>'; }
+    h += ownHTML("diffText","你最不一樣的是？","例如：每天自己去港口挑的");
     h += '<button class="back" id="back">← 上一步</button>';
   } else if(state.step===3){
     h += head(3)+'<h1>你想當哪種老闆？</h1>';
     for(var i=0;i<3;i++){ h+='<button class="btn choice" data-c="'+i+'">'+Q3[i][0]+'<small>'+Q3[i][1]+'</small></button>'; }
+    h += ownHTML("bossText","客人會看到一個＿＿的老闆","例如：記得每個客人愛吃什麼");
     h += '<button class="back" id="back">← 上一步</button>';
-  } else { h += resultHTML(); }
+  } else if(state.step===5){ h += cutHTML(state.li||0); } else { h += resultHTML(); }
   app.innerHTML = h;
   if(!state.keep){ window.scrollTo(0,0); } state.keep=false;
   bind();
 }
 function pieces(){
-  var S = STALLS[state.stall], r=state.r, c=state.c;
+  var S = base(), r=state.r, c=state.c;
   var altC = (c===1)?0:1;
-  var sentence = "我是"+S.kind+"，最不一樣的是"+S.diff[r]+"，你會看到一個"+S.boss[c]+"的老闆。";
+  var sentence = "我是"+kind()+"，最不一樣的是"+(state.diffText||S.diff[r])+"，你會看到一個"+(state.bossText||S.boss[c])+"的老闆。";
   return { S:S, main:S.cells[r*3+c], alt:S.cells[r*3+altC], altC:altC, sentence:sentence };
 }
 function resultHTML(){
@@ -189,39 +261,58 @@ function resultHTML(){
   }
   h += '</div><p class="legend">點別的格子，可以換一個主打試試看</p>';
   h += '<div class="card"><p class="t">你的一句話定位</p><p style="margin:0">'+esc(p.sentence)+'</p></div>';
-  h += scriptHTML();
-  h += '<a class="btn line big" href="'+esc(LINE_URL+encodeURIComponent("我要交作業"))+'">✅ 我拍好了，傳給 Eric</a>';
-  h += '<p class="tip">按下去會打開 LINE，照著跳出來的說明傳影片就好</p>';
+  h += '<button class="btn orange big" id="toscript">確定，幫我出腳本 →</button>';
+  h += '<p class="tip">一共 5 句，一句拍一段（每段 3 秒左右），每一句都有拍法圖。剪好是一支 20 秒的影片。</p>';
   h += '<div class="links"><button id="redo">重新選一次</button><a href="../">回首頁</a></div>';
   return h;
 }
 function lineText(){
   var p = pieces();
-  return "我填好九宮格了！\n攤位："+STALLS[state.stall].name+"\n主打："+p.main+"\n一句話："+p.sentence;
+  return "我填好九宮格了！\n攤位："+kind()+"（賣"+goods()+"）"+"\n主打："+p.main+"\n一句話："+p.sentence;
 }
 function lineLink(){ return LINE_URL + encodeURIComponent(lineText()); }
 
+function readInputs(){
+  var k=document.getElementById("kind"), g=document.getElementById("goods");
+  if(k){ state.kind=k.value.trim(); }
+  if(g){ state.goods=g.value.trim(); }
+}
 function bind(){
   var q;
-  if((q=document.getElementById("next1"))){ q.onclick=function(){ state.stall=document.getElementById("sel").value; state.step=2; render(); }; }
+  if((q=document.getElementById("toscript"))){ q.onclick=function(){ state.li=0; state.step=5; save(); render(); }; }
+  if((q=document.getElementById("nextcut"))){ q.onclick=function(){ state.li++; save(); render(); }; }
+  if((q=document.getElementById("prevcut"))){ q.onclick=function(){ if(state.li>0){ state.li--; } else { state.step=4; } save(); render(); }; }
+  if((q=document.getElementById("sel"))){ q.onchange=function(){ readInputs(); state.stall=this.value; if(state.stall!=="custom"){ state.kind=""; } state.goods=""; state.keep=true; render(); var k=document.getElementById(state.stall==="custom"?"kind":"goods"); if(k){ k.focus(); } }; }
+  if((q=document.getElementById("next1"))){ q.onclick=function(){
+    readInputs(); state.stall=document.getElementById("sel").value;
+    if(state.stall==="custom" && !state.kind){ document.getElementById("err").textContent="請先打你的店叫什麼"; document.getElementById("kind").focus(); return; }
+    state.step=2; state.own=false; render(); }; }
+  if((q=document.getElementById("own"))){ q.onclick=function(){ state.own=true; state.keep=true; render(); document.getElementById("owntxt").focus(); }; }
+  if((q=document.getElementById("ownnext"))){ q.onclick=function(){
+    var v=document.getElementById("owntxt").value.trim(), f=this.getAttribute("data-field");
+    if(!v){ document.getElementById("err").textContent="打幾個字再按下一步，或點上面的選項"; return; }
+    state[f]=v; state.own=false;
+    if(f==="diffText"){ state.r=0; state.step=3; render(); }     // 自己寫的特色：腳本先套「東西好」那一列
+    else { state.c=1; state.step=4; save(); render(); }           // 自己寫的老闆樣子：腳本先套「鄰居」那一行
+  }; }
   var back=document.getElementById("back");
-  if(back){ back.onclick=function(){ state.step=state.step-1; render(); }; }
+  if(back){ back.onclick=function(){ state.step=state.step-1; state.own=false; render(); }; }
   var bs=document.querySelectorAll("[data-r]");
-  for(var i=0;i<bs.length;i++){ bs[i].onclick=function(){ state.r=+this.getAttribute("data-r"); state.step=3; render(); }; }
+  for(var i=0;i<bs.length;i++){ bs[i].onclick=function(){ state.r=+this.getAttribute("data-r"); state.diffText=""; state.own=false; state.step=3; render(); }; }
   bs=document.querySelectorAll("[data-c]");
-  for(var k=0;k<bs.length;k++){ bs[k].onclick=function(){ state.c=+this.getAttribute("data-c"); state.step=4; save(); render(); }; }
+  for(var k=0;k<bs.length;k++){ bs[k].onclick=function(){ state.c=+this.getAttribute("data-c"); state.bossText=""; state.own=false; state.step=4; save(); render(); }; }
   var cs=document.querySelectorAll("[data-cell]");
   for(var z=0;z<cs.length;z++){ cs[z].onclick=function(){ var a=this.getAttribute("data-cell").split(","); state.r=+a[0]; state.c=+a[1]; save(); state.keep=true; render(); }; }
-  if((q=document.getElementById("redo"))){ q.onclick=function(){ clearSaved(); state={step:1,stall:state.stall,r:null,c:null}; render(); }; }
+  if((q=document.getElementById("redo"))){ q.onclick=function(){ clearSaved(); state={step:1,stall:state.stall,kind:state.kind,goods:state.goods,diffText:"",bossText:"",own:false,r:null,c:null}; render(); }; }
 }
 // 啟動：hash 僅供測試預覽（#q2 / #q3 / #fish-0-0），正式使用靠 localStorage
 (function(){
-  var m = /^#(?:(q[123])|(\w+)-(\d)-(\d))$/.exec(location.hash||"");
+  var m = /^#(?:(q[123])|(\w+)-(\d)-(\d)(?:-(\d))?)$/.exec(location.hash||"");
   if(m){
     if(m[1]){ state.step=+m[1].charAt(1); state.r=0; }
-    else if(STALLS[m[2]]){ state={step:4,stall:m[2],r:+m[3],c:+m[4]}; }
+    else if(STALLS[m[2]]){ state={step:(m[5]?5:4),li:+(m[5]||0),stall:m[2],r:+m[3],c:+m[4]}; }
   } else {
-    var v=load(); if(v){ state={step:4,stall:v.stall,r:v.r,c:v.c}; }
+    var v=load(); if(v){ state={step:(v.step===5?5:4),li:v.li||0,stall:v.stall,kind:v.kind||"",goods:v.goods||"",diffText:v.diffText||"",bossText:v.bossText||"",r:v.r,c:v.c}; }
   }
   render();
 })();
