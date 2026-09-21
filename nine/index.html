@@ -29,11 +29,24 @@ select{width:100%;height:60px;font-size:22px;font-family:inherit;color:#1A1A1A;b
 .back{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:12px 4px;background:none;border:0;font-family:inherit;cursor:pointer}
 .big{font-size:26px;font-weight:bold;line-height:1.5;color:#1A1A1A;background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:12px 14px;margin:0 0 16px}
 .big b{color:#E8590C}
-.grid{display:grid;grid-template-columns:34px repeat(3,minmax(0,1fr));gap:6px;margin:0 0 18px}
-.gh{font-size:15px;font-weight:bold;color:#1F6F4A;text-align:center;line-height:1.3;padding:2px 0;display:flex;align-items:center;justify-content:center}
-.cell{font-size:15px;line-height:1.45;padding:8px 5px;border-radius:8px;background:#EEF5F0;color:#1A1A1A;word-break:break-all;overflow-wrap:anywhere;display:flex;align-items:center;min-height:96px}
-.cell.main{background:#E8590C;color:#FFFFFF;font-weight:bold}
+.grid{display:grid;grid-template-columns:32px repeat(3,minmax(0,1fr));gap:6px;margin:0 0 8px;width:100%}
+.gh{font-size:15px;font-weight:bold;color:#1F6F4A;text-align:center;line-height:1.25;display:flex;align-items:center;justify-content:center}
+.gh.row{font-size:15px;line-height:1.2}
+.cell{position:relative;min-width:0;width:100%;height:92px;font-size:17px;font-weight:bold;line-height:1.3;padding:4px;text-wrap:balance;letter-spacing:0;border-radius:10px;background:#EEF6F1;color:#1F6F4A;display:flex;align-items:center;justify-content:center;text-align:center;border:3px solid transparent;cursor:pointer;font-family:inherit}
+.cell:active{transform:scale(.97)}
+.cell.main{background:#E8590C;color:#FFFFFF}
+.cell.main::after{content:"★主打";position:absolute;top:3px;right:4px;font-size:12px;background:#FFFFFF;color:#E8590C;border-radius:6px;padding:0 4px;line-height:1.5}
 .cell.alt{border:3px dashed #E8590C}
+.seg{border:3px solid #1F6F4A;border-radius:12px;margin:0 0 12px;overflow:hidden}
+.seg .h{background:#1F6F4A;color:#FFFFFF;font-weight:bold;font-size:20px;padding:6px 12px}
+.seg .h small{font-weight:normal;font-size:16px;margin-left:6px}
+.seg .b{padding:10px 12px}
+.seg .shot{font-size:18px;margin:0 0 6px;color:#333}
+.seg .say{font-size:22px;font-weight:bold;line-height:1.55;margin:0}
+.mk{color:#E8590C}
+.notice{background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:10px 12px;font-size:19px;font-weight:bold;margin:0 0 14px}
+.btn.big{min-height:76px;font-size:24px}
+.links{text-align:center;margin:8px 0}.links button,.links a{font-size:18px;color:#555;background:none;border:0;text-decoration:underline;margin:0 10px;font-family:inherit;cursor:pointer}
 .legend{font-size:18px;margin:-8px 0 16px}
 .card{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 16px;background:#FFFFFF}
 .card .t{font-size:22px;font-weight:bold;color:#1F6F4A;margin:0 0 6px}
@@ -51,31 +64,31 @@ footer{font-size:18px;text-align:center;color:#1F6F4A;border-top:2px solid #DDE9
 // cells 依序：1A 1B 1C 2A 2B 2C 3A 3B 3C（列＝東西好/手藝好/人情濃；行＝師傅/鄰居/年輕老闆）
 // diff：一句話中「最不一樣的是」，依列 1/2/3；boss：「你會看到一個」，依行 A/B/C
 var STALLS = {
-  fish:{ label:"魚攤", kind:"魚攤", name:"魚攤",
+  fish:{ label:"魚攤", kind:"魚攤", name:"魚攤", goods:"魚", short:["教挑魚","報今天貨","跟我進貨","殺魚示範","邊做邊聊","殺魚進步史","老魚販觀點","熟客留魚","接手第一課"],
     cells:["教你一眼認出新鮮魚","用聊天的口氣報「今天早上從基隆載回來的魚」","跟著我凌晨進貨的一天",
            "現場殺魚、片魚示範，教你怎麼下刀","邊處理邊問客人：「要清蒸還是煎？」","第一次學殺魚的失敗集錦，到現在多快",
            "三十年老魚販眼中，魚市場的變化","熟客阿姨每週五都來，我先幫她留那一條","接手爸爸的魚攤，學到的第一堂課"],
     diff:["每天凌晨親自去挑魚","殺魚片魚的手藝，當場示範給你看","跟熟客三十年的交情"],
     boss:["教你挑魚","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  pork:{ label:"豬肉攤", kind:"豬肉攤", name:"豬肉攤",
+  pork:{ label:"豬肉攤", kind:"豬肉攤", name:"豬肉攤", goods:"豬肉", short:["教看豬肉","報今天貨","跟我批肉","部位教學","邊切邊聊","剁骨進步史","老肉販觀點","熟客留肉","接手第一課"],
     cells:["教你看豬肉：顏色、油脂、彈性三招","用聊天口氣報「今早現宰的溫體豬」","跟著我凌晨去批肉的一天",
            "示範這塊肉是哪個部位、適合怎麼煮","邊切邊問客人：「要炒的還是燉的？」","第一次學剁排骨的狼狽，到現在多快",
            "三十年老肉販看豬肉行情的變化","熟客阿姨每週都來，我先留好那塊肉","接手爸爸的肉攤，學到的第一堂課"],
     diff:["每天一早親自挑的溫體豬肉","切肉、剁骨的功夫，當場示範","跟熟客三十年的交情"],
     boss:["教你買肉","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  veg:{ label:"蔬果攤", kind:"蔬果攤", name:"蔬果攤",
+  veg:{ label:"蔬果攤", kind:"蔬果攤", name:"蔬果攤", goods:"菜", short:["教挑菜","報今天甜","跟我批菜","切果示範","邊裝邊教","切瓜進步史","看季節變化","熟客留菜","接手第一課"],
     cells:["教你挑菜：葉子、菜梗、切口看新鮮","用聊天口氣說「今天哪種菜最甜」","跟著我半夜去批菜的一天",
            "示範水果怎麼切、怎麼包，客人好帶","邊裝袋邊教：「這個回家這樣煮」","學切西瓜的失敗集錦，到現在多快",
            "三十年老菜販看季節與菜價的變化","熟客每週都來，我先幫他留最嫩的","接手家裡的菜攤，客人一開始不信我"],
     diff:["每天天沒亮就去挑的當季蔬果","切水果、分裝的巧思，當場示範","跟熟客三十年的交情"],
     boss:["教你挑菜挑水果","像鄰居一樣愛聊天","拚著學、天天進步"] },
-  food:{ label:"熟食小吃", kind:"熟食小吃攤", name:"熟食小吃",
+  food:{ label:"熟食小吃", kind:"熟食小吃攤", name:"熟食小吃", goods:"滷肉飯", short:["教看五花","報剛出鍋","挑料三標準","滷汁火候","邊盛邊聊","滷汁挑戰","三十年滷汁","老樣子","二代接手"],
     cells:["教你看滷肉用的五花，肥瘦怎麼分才好吃","今天哪一道剛出鍋，用聊天口氣說","我每天挑食材的三個標準",
            "滷汁怎麼顧、火候怎麼抓","邊盛菜邊問：「要不要多淋一點滷汁？」","三十天挑戰，把阿嬤的滷汁學到像",
            "這鍋滷汁跟了我三十年","「老樣子」——客人不用開口我就知道","第二代接手，客人一開始不信任我"],
     diff:["每天親自挑的食材，份量給足","滷汁的火候，一鍋顧三十年","客人一坐下我就知道他要什麼"],
     boss:["教你怎麼吃得好","記得你、像鄰居一樣的","拚著學、天天進步"] },
-  other:{ label:"其他店家（通用）", kind:"店家", name:"其他店家",
+  other:{ label:"其他店家（通用）", kind:"店家", name:"其他店家", goods:"東西", short:["教分好壞","報本週新貨","開店一天","拿手示範","邊做邊問","新手進步史","這行的變化","熟客默契","接手第一課"],
     cells:["教你的客人怎麼分辨好東西和便宜貨","用聊天口氣說你的店這禮拜進了什麼","跟著我，從開店到打烊的一天",
            "現場示範你最拿手的一個步驟，邊做邊講","邊做邊問客人：「你想要怎樣的？」","剛學這行的失敗集錦，到現在進步多少",
            "做這行三十年，看這行的變化","熟客一進門，我就知道他要什麼","接手家裡的店，學到的第一堂課"],
@@ -89,6 +102,33 @@ var COLS = ["懂行的師傅","貼心的鄰居","拚勁的年輕老闆"];
 var COLSHORT = ["懂行師傅","貼心鄰居","拚勁老闆"];
 var Q2 = [["東西好","貨源、新鮮、份量"],["手藝好","怎麼切、怎麼熬、怎麼做"],["人情濃","幾年了、誰傳的、熟客故事"]];
 var Q3 = [["懂行的師傅","教客人怎麼挑、怎麼做"],["貼心的鄰居","像街坊聊天"],["拚勁的年輕老闆","邊做邊學、記錄成長"]];
+// 腳本範本：TPL[r][c] = 5 段台詞。{貨}{攤} 自動帶入；【】是要換成自己的
+var SEGS = [["0–3 秒","開頭吆喝","",'近景，對著鏡頭講'],["3–8 秒","勾起期待","",'拍到腰部以上，背後是攤位'],
+            ["8–17 秒","講重點","補拍",'手部特寫，邊做邊講'],["17–25 秒","更厲害的","補拍",'拍給客人看，或拍整個攤位'],
+            ["25–30 秒","收尾小事","",'近景，微笑看鏡頭']];
+var TPL = [
+ [ ["買{貨}最怕買錯，我教你三招。","我賣{貨}【二十】年，今天一次講給你聽。","第一看【顏色】，第二摸【彈性】，第三聞【味道】。","三招都過了，我才敢賣給你。","學會了嗎？留言「學到了」，下次教你別的。"],
+   ["今天這批{貨}真的漂亮！","【今天一早】剛到的，我自己先挑過。","你看這個【顏色】，這種的最好吃。","晚上要煮什麼？我幫你挑最適合的。","明天來攤位，跟我說「看到影片」。"],
+   ["我接這個{攤}第【三】年，帶你看我怎麼挑{貨}。","以前我根本不會挑，被罵了好幾次。","現在我知道，要看【這裡】、摸【這裡】。","今天又學到一招：【好的會比較重】。","跟著我一起學，留言「加油」給我！"] ],
+ [ ["{貨}要好吃，關鍵在這一步。","我做了【二十】年，這一步從來不省。","先【切】，再【洗】，最後【這樣處理】。","你在家也可以這樣做，味道差很多。","想看完整做法？留言「想學」。"],
+   ["要怎麼煮？跟我說，我幫你處理好。","很多人不知道，這樣處理回家比較好煮。","你看，我先【這樣】，再【這樣】。","好了！拿回去直接下鍋就可以。","下次來攤位，直接說「跟影片一樣」。"],
+   ["我第一次做這個，做得超慘。","那時候【手很慢】，客人都等到不耐煩。","練了【三】個月，現在是這樣——","從【十分鐘】變【一分鐘】，自己都嚇一跳。","幫我留言「進步了」，我會繼續練！"] ],
+ [ ["在這個市場【三十】年，我看過好多變化。","以前的人買{貨}，都會先問一件事。","就是【怎麼挑】，到現在我還是這樣教。","東西會變，做生意的道理沒變：【實在】。","想聽老故事？留言「想聽」，我慢慢講。"],
+   ["【王阿姨】每個禮拜都來，你知道她都買什麼嗎？","我都先幫她留好，她一來就拿走。","做生意久了，客人就像家人一樣。","你第一次來，我也會記得你要什麼。","來攤位跟我打聲招呼，說「看到影片」！"],
+   ["我是這個{攤}的第【二】代。","一開始客人都不信我，只找我【爸爸】。","我每天都來，把【爸爸】教的一樣一樣做好。","現在，熟客開始會叫我名字了。","幫我跟【爸爸】說聲加油，留言「加油」！"] ]
+];
+function fill(s){ var S=STALLS[state.stall]; return s.replace(/\{貨\}/g,S.goods).replace(/\{攤\}/g,S.kind); }
+function mark(s){ return esc(s).replace(/【([^】]*)】/g,'<span class="mk">【$1】</span>'); }
+function scriptHTML(){
+  var lines=TPL[state.r][state.c], h='<h2 style="margin-top:8px">照這個拍，30 秒就好</h2>';
+  h+='<div class="notice">今天先拍 0–8 秒和 25–30 秒，中間那段回攤位再補</div>';
+  for(var i=0;i<5;i++){
+    h+='<div class="seg"><div class="h">'+SEGS[i][0]+'　'+SEGS[i][1]+(SEGS[i][2]?'<small>（'+SEGS[i][2]+'）</small>':'')+'</div>';
+    h+='<div class="b"><p class="shot">📷 拍：'+SEGS[i][3]+'</p><p class="say">🗣「'+mark(fill(lines[i]))+'」</p></div></div>';
+  }
+  h+='<p style="font-size:18px">【】裡換成你自己的。沒發生過的事不要唸。</p>';
+  return h;
+}
 var SCRIPT_URL = "https://drive.google.com/file/d/1QUEIKFPOgBNRCFOd1_j7qGjzR8kiHlZ7/view";
 var LINE_URL = "https://line.me/R/oaMessage/@898edwac/?";
 var KEY = "haokang_grid_v1";
@@ -126,7 +166,7 @@ function render(){
     h += '<button class="back" id="back">← 上一步</button>';
   } else { h += resultHTML(); }
   app.innerHTML = h;
-  window.scrollTo(0,0);
+  if(!state.keep){ window.scrollTo(0,0); } state.keep=false;
   bind();
 }
 function pieces(){
@@ -141,19 +181,18 @@ function resultHTML(){
   h += '<div class="grid"><div></div>';
   for(var j=0;j<3;j++){ h+='<div class="gh">'+COLSHORT[j]+'</div>'; }
   for(var i=0;i<3;i++){
-    h += '<div class="gh">'+ROWSHORT[i]+'</div>';
+    h += '<div class="gh row">'+ROWSHORT[i].split('').join('<br>')+'</div>';
     for(var j=0;j<3;j++){
       var cls = "cell"+((i===r&&j===c)?" main":((i===r&&j===p.altC)?" alt":""));
-      h += '<div class="'+cls+'">'+esc(S.cells[i*3+j])+'</div>';
+      h += '<button class="'+cls+'" data-cell="'+i+','+j+'" aria-label="'+esc(S.cells[i*3+j])+'">'+esc(S.short[i*3+j])+'</button>';
     }
   }
-  h += '</div><p class="legend">橘色底＝主打　橘色虛線框＝備用</p>';
+  h += '</div><p class="legend">點別的格子，可以換一個主打試試看</p>';
   h += '<div class="card"><p class="t">你的一句話定位</p><p style="margin:0">'+esc(p.sentence)+'</p></div>';
-  h += '<div class="card two"><p class="t">這禮拜拍這兩支</p><ol><li><b>主打：</b>'+esc(p.main)+'</li><li><b>備用：</b>'+esc(p.alt)+'</li></ol></div>';
-  h += '<a class="btn orange" href="'+SCRIPT_URL+'" target="_blank" rel="noopener">📝 看腳本卡，照唸就能拍</a>';
-  h += '<a class="btn line" href="'+esc(lineLink())+'">💬 傳給 Eric</a>';
-  h += '<p class="tip">想存起來？同時按電源鍵＋音量鍵截圖</p>';
-  h += '<button class="btn ghost" id="redo">重新選一次</button>';
+  h += scriptHTML();
+  h += '<a class="btn line big" href="'+esc(LINE_URL+encodeURIComponent("我要交作業"))+'">✅ 我拍好了，傳給 Eric</a>';
+  h += '<p class="tip">按下去會打開 LINE，照著跳出來的說明傳影片就好</p>';
+  h += '<div class="links"><button id="redo">重新選一次</button><a href="../">回首頁</a></div>';
   return h;
 }
 function lineText(){
@@ -171,6 +210,8 @@ function bind(){
   for(var i=0;i<bs.length;i++){ bs[i].onclick=function(){ state.r=+this.getAttribute("data-r"); state.step=3; render(); }; }
   bs=document.querySelectorAll("[data-c]");
   for(var k=0;k<bs.length;k++){ bs[k].onclick=function(){ state.c=+this.getAttribute("data-c"); state.step=4; save(); render(); }; }
+  var cs=document.querySelectorAll("[data-cell]");
+  for(var z=0;z<cs.length;z++){ cs[z].onclick=function(){ var a=this.getAttribute("data-cell").split(","); state.r=+a[0]; state.c=+a[1]; save(); state.keep=true; render(); }; }
   if((q=document.getElementById("redo"))){ q.onclick=function(){ clearSaved(); state={step:1,stall:state.stall,r:null,c:null}; render(); }; }
 }
 // 啟動：hash 僅供測試預覽（#q2 / #q3 / #fish-0-0），正式使用靠 localStorage
