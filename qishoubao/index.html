@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>好康傳出來｜攤位短影音起手包</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FFFFFF;color:#1A1A1A;font-family:"Iansui","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:20px;line-height:1.6;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 40px}
+.top{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:10px 0}
+h1{font-size:28px;line-height:1.4;margin:6px 0 14px;color:#1A1A1A}
+h2{font-size:26px;line-height:1.4;margin:0 0 12px;color:#1F6F4A}
+h3{font-size:22px;line-height:1.4;margin:22px 0 8px;color:#1F6F4A}
+p{margin:0 0 12px}
+b{color:#14532D}
+.r{color:#E8590C;font-weight:bold}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:64px;margin:0 0 14px;padding:10px 14px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;text-decoration:none;cursor:pointer}
+.btn small{display:block;font-size:18px;font-weight:normal;margin-top:2px}
+.btn.col{flex-direction:column}
+.btn.line{background:#06C755}
+.btn.orange{background:#E8590C}
+.btn.ghost{background:#FFFFFF;color:#1F6F4A;border:3px solid #1F6F4A}
+.callout{font-size:22px;font-weight:bold;line-height:1.5;color:#1A1A1A;background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:12px 14px;margin:0 0 16px}
+.callout b{color:#B03A00}
+.note{font-size:18px;color:#555555;margin:0 0 12px}
+.card{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF;overflow:hidden}
+.card .ct{font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;padding:8px 14px;display:flex;align-items:center}
+.card .ct .n{font-size:40px;line-height:1;margin-right:12px;flex:none}
+.card .cb{padding:12px 14px 4px;background:#F3F8F5}
+.card .cb p{margin:0 0 10px}
+.ci{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 16px}
+.ci .t{font-size:22px;font-weight:bold;color:#1F6F4A;margin:0 0 6px}
+details.chap{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF}
+details.chap>summary{list-style:none;cursor:pointer;min-height:64px;padding:12px 14px;font-size:24px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+details.chap>summary::-webkit-details-marker{display:none}
+details.chap>summary::after{content:"＋ 打開";font-size:18px;font-weight:normal;flex:none;margin-left:10px}
+details.chap[open]>summary{border-radius:10px 10px 0 0}
+details.chap[open]>summary::after{content:"－ 收起"}
+details.chap>.body{padding:14px 12px 4px}
+.chk{display:flex;align-items:flex-start;margin:0 0 12px;font-size:20px}
+.chk input{width:30px;height:30px;flex:none;margin:2px 12px 0 0;accent-color:#1F6F4A}
+.chk label{display:block}
+.code{font-family:"Menlo","Consolas","Iansui","PingFang TC",monospace;font-size:17px;line-height:1.6;background:#F1F1F1;border-left:6px solid #6B7F8E;border-radius:8px;padding:12px;margin:0 0 10px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;color:#222222}
+.copy{background:#1F6F4A}
+.copy.ok{background:#E8590C}
+.footnav{border-top:2px solid #DDE9E2;margin-top:28px;padding-top:16px}
+footer{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.seg button{min-height:72px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.3;color:#1F6F4A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:14px;padding:6px;cursor:pointer}
+.seg button[aria-pressed=true]{background:#1F6F4A;color:#FFFFFF}
+.sc{margin:0 0 20px}
+.sc[hidden]{display:none}
+.sc .st{font-size:26px;font-weight:bold;line-height:1.4;color:#1F6F4A;margin:0 0 10px}
+.seg5{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 12px;overflow:hidden;background:#F3F8F5}
+.seg5 .sh{background:#1F6F4A;color:#FFFFFF;font-size:22px;font-weight:bold;padding:6px 14px}
+.seg5 .sh small{font-size:18px;font-weight:normal;margin-left:8px}
+.seg5 .sb{padding:10px 14px 2px}
+.seg5 .sb p{margin:0 0 10px}
+.hint{font-size:22px;font-weight:bold;text-align:center;color:#1F6F4A;padding:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="top" href="../">← 回首頁</a><h1>攤位短影音起手包</h1><p>一支手機，讓好生意被看見</p><p class="note">日期：2026.9.24　地點：板橋黃石市場　講師：張書豪 Eric</p><div class="ci"><p class="t">這份講義怎麼用</p><p>1. 先點九宮格網頁，選出你要主打的格子。</p><p>2. 帶回攤位，照著一頁一頁做。</p><p>3. 一週固定花 30 分鐘，拍 3～5 支。</p></div><details class="chap" open><summary>明天，你只要做這三件事</summary><div class="body"><div class="callout"><b>今天你已經拍好了影片的頭和尾，就在你的手機相簿裡。</b></div><div class="card"><div class="ct"><span class="n">1</span><span>第一步：補中間</span></div><div class="cb"><p>明天開攤的時候，照腳本卡上 8 秒到 25 秒那幾格，對著你的貨講三句話，拍下來。</p><p>（來不及補？沒關係，頭和尾兩段先接起來也能發，只是短一點。）</p></div></div><div class="card"><div class="ct"><span class="n">2</span><span>第二步：接成一支</span></div><div class="cb"><p>打開 CapCut → 新專案 → 依序點：開頭、中間、結尾（畫面會出現 1、2、3）→ 按「新增」</p></div></div><div class="card"><div class="ct"><span class="n">3</span><span>第三步：上字幕，發出去</span></div><div class="cb"><p>按「自動字幕」，檢查錯字 → 右上角「匯出」→ 跑完按「儲存到相簿」</p></div></div><h3>發到哪裡</h3><div class="card"><div class="ct"><span>Facebook</span></div><div class="cb"><p>1. 打開 Facebook，點最上面「在想些什麼？」，再點「相片／影片」</p><p>2. 選剛剛那支影片（相簿裡最新、時間是今天），寫一句話，例如「今天的魚，這樣挑」</p><p>3. 按右上角「發佈」</p></div></div><div class="card"><div class="ct"><span>Instagram</span></div><div class="cb"><p>1. 打開 Instagram，點下方正中間的「＋」，選「連續短片」</p><p>2. 選那支影片，一路按「下一步」</p><p>3. 寫一句話，按「分享」</p></div></div><p class="note">畫面上的字可能跟你的手機不太一樣，找意思相同的按鈕就對了。</p></div></details><details class="chap"><summary>攤位定位九宮格</summary><div class="body"><p>定位＝客人跟朋友介紹你的時候，一句話怎麼說你。</p><p class="note">先在每一格寫一個可以拍的題材（寫不出來就空著），再圈出你最有把握的一格。</p><h3>橫軸：三種你（A／B／C）</h3><p><b>A 懂行的師傅</b>：教客人怎麼挑、怎麼做</p><p><b>B 貼心的鄰居</b>：像街坊聊天</p><p><b>C 拚勁的年輕老闆</b>：邊做邊學、記錄成長</p><h3>直軸：三個賣點（1／2／3）</h3><p><b>1 東西好</b>：貨源、新鮮、份量</p><p><b>2 手藝好</b>：怎麼切、怎麼熬、怎麼做</p><p><b>3 人情濃</b>：幾年了、誰傳的、熟客故事</p><h3>填法</h3><p>①每格寫一個題材</p><p>②圈出「主打格」</p><p>③再圈兩格當「備用格」</p><p>④把主打格填進下面這句</p><p>我是＿＿攤，最不一樣的是＿＿＿＿，你會看到一個＿＿＿的老闆。</p><h3>範例：魚攤（已填好，供你參考）</h3><div class="card"><div class="ct"><span>1 東西好</span></div><div class="cb"><p><b>A 懂行的師傅</b>：教你一眼認出新鮮魚（三招）【主打】</p><p><b>B 貼心的鄰居</b>：用聊天的口氣報「今天早上從基隆載回來的魚」</p><p><b>C 拚勁的年輕老闆</b>：跟著我凌晨進貨的一天</p></div></div><div class="card"><div class="ct"><span>2 手藝好</span></div><div class="cb"><p><b>A 懂行的師傅</b>：現場殺魚、片魚示範，教你怎麼下刀</p><p><b>B 貼心的鄰居</b>：邊處理邊問客人：「要清蒸還是煎？」</p><p><b>C 拚勁的年輕老闆</b>：第一次學殺魚的失敗集錦，到現在多快</p></div></div><div class="card"><div class="ct"><span>3 人情濃</span></div><div class="cb"><p><b>A 懂行的師傅</b>：三十年老魚販眼中，魚市場的變化</p><p><b>B 貼心的鄰居</b>：熟客阿姨每週五都來，我先幫她留那一條【備用】</p><p><b>C 拚勁的年輕老闆</b>：接手爸爸的魚攤，學到的第一堂課</p></div></div><div class="callout"><b>一句話</b>：「我是黃石市場的魚攤，最不一樣的是每天凌晨從基隆親自挑魚，你會看到一個教你挑魚的老闆。」</div><a class="btn orange" href="../nine/">點這裡，選你的九宮格</a></div></details><details class="chap"><summary>四大題材：你可以拍什麼</summary><div class="body"><div class="card"><div class="ct"><span>曬過程</span></div><div class="cb"><p>把你每天做的事直接拍出來，眼見為實。</p><p>1. 魚攤：凌晨進貨全程</p><p>2. 豬肉攤：現切三種部位</p><p>3. 麵攤：熬湯頭快轉 30 秒</p><p>4. 蔬果攤：今早到貨 vs 放三天</p><p>5. 熟食攤：一百塊能帶走幾樣</p></div></div><div class="card"><div class="ct"><span>教知識</span></div><div class="cb"><p>把你懂的，教客人一個馬上能用的招。</p><p>1. 魚攤：一眼認出新鮮魚三招</p><p>2. 菜攤：葉菜放三天還是脆</p><p>3. 水果攤：挑到熟的西瓜</p><p>4. 乾貨攤：香菇蝦米怎麼泡</p><p>5. 雞肉攤：燉湯炒菜挑哪個部位</p></div></div><div class="card"><div class="ct"><span>講故事</span></div><div class="cb"><p>讓客人先喜歡你，再買你的東西。</p><p>1. 麵攤：差點倒掉的那鍋湯頭</p><p>2. 魚攤：跟爸爸半夜進貨的小孩</p><p>3. 青創攤：第一個月只賣三杯</p><p>4. 豬肉攤：阿嬤忘了帶錢那天</p><p>5. 蔬果攤：颱風後對熟客照原價</p></div></div><div class="card"><div class="ct"><span>傳人情</span></div><div class="cb"><p>把你跟熟客、鄰居之間的溫度拍出來。</p><p>1. 蔬果攤：熟客阿嬤的口味我都記得</p><p>2. 雞肉攤：三十年沒缺席的客人</p><p>3. 早餐攤：不用開口就知道「老樣子」</p><p>4. 魚攤：多送你的那條小魚</p><p>5. 雜貨攤：隔壁攤幫我顧攤一小時</p></div></div><p class="note">「我的題材」在手機備忘錄記下來就好。</p></div></details><details class="chap"><summary>3 秒鉤子 8 型</summary><div class="body"><p>鉤子＝影片最前面那句話，像攤位門口的一聲吆喝。約 15～25 字，唸不完就砍短，不要說「大家好」。</p><div class="card"><div class="ct"><span>1　觀點型</span></div><div class="cb"><p>說出讓人「咦？」的看法，最好帶否定。</p><p><b>示範</b>：「別再說傳統市場比較貴了。」</p></div></div><div class="card"><div class="ct"><span>2　成果展示型</span></div><div class="cb"><p>先秀結果，再說怎麼做到。</p><p><b>示範</b>：「一箱魚，六小時全賣光，我只做了一件事。」</p></div></div><div class="card"><div class="ct"><span>3　挑戰發起型</span></div><div class="cb"><p>對觀眾說「你敢不敢」，或自己接受挑戰。</p><p><b>示範</b>：「給我一分鐘，我教你挑到最甜的西瓜。」</p></div></div><div class="card"><div class="ct"><span>4　心願痛點型</span></div><div class="cb"><p>說出大家想做到、卻不容易的心願。</p><p><b>示範</b>：「下班只剩半小時，還想煮一頓像樣的晚餐？」</p></div></div><div class="card"><div class="ct"><span>5　問題質疑型</span></div><div class="cb"><p>把大家心裡的懷疑直接問出來。</p><p><b>示範</b>：「市場真的不乾淨嗎？我帶你看我一天怎麼洗。」</p></div></div><div class="card"><div class="ct"><span>6　好奇型</span></div><div class="cb"><p>讓人「非要知道答案不可」。</p><p><b>示範</b>：「大部分人買魚，都漏看了這個地方。」</p></div></div><div class="card"><div class="ct"><span>7　借勢型</span></div><div class="cb"><p>借最近大家都在講的事（節日、天氣）。</p><p><b>示範</b>：「中秋快到了，烤肉的肉怎麼挑才不柴？」</p></div></div><div class="card"><div class="ct"><span>8　痛點型</span></div><div class="cb"><p>直接點出「你是不是也遇過……」。</p><p><b>示範</b>：「你是不是也常買回家的青菜，隔天就爛？」</p></div></div></div></details><details class="chap"><summary>一支影片 4 步驟</summary><div class="body"><p>30 秒就是這四步。示範：水果攤教挑西瓜。</p><div class="card"><div class="ct"><span class="n">1</span><span>鉤子（0–3 秒）</span></div><div class="cb"><p>吆喝一聲，讓人停下來。</p><p><b>示範</b>：「給我一分鐘，我教你挑到最甜的西瓜。」</p></div></div><div class="card"><div class="ct"><span class="n">2</span><span>期待（3–8 秒）</span></div><div class="cb"><p>告訴觀眾「等一下有好東西」，讓他捨不得滑走。</p><p><b>示範</b>：「我賣西瓜二十年，靠一個動作就能分辨，等一下示範給你看。」</p></div></div><div class="card"><div class="ct"><span class="n">3</span><span>內容（8–25 秒）</span></div><div class="cb"><p>講 2～3 個重點，一句話一個畫面。</p><p><b>示範</b>：「先看瓜蒂，再看瓜底黃斑。更厲害的是，用手拍一下，聲音低沉的比較熟。」</p></div></div><div class="card"><div class="ct"><span class="n">4</span><span>最後一件小事（25–30 秒）</span></div><div class="cb"><p>請觀眾做一件很小的事，一次只請一件。</p><p><b>示範</b>：「想要挑瓜小卡？留言『西瓜』，我傳給你。」</p></div></div><h3>我的 30 秒腳本</h3><p class="note">在手機備忘錄記下來就好。照下面五段秒數，想好每段要拍什麼、講什麼：</p><p><b>0–3 秒：鉤子</b>　拍你的臉與攤位（胸口以上），一句吆喝。</p><p><b>3–8 秒：期待</b>　還是拍你，告訴觀眾「等一下有好東西」。</p><p><b>8–17 秒：內容（重點一）</b>　拍手上的貨或動作特寫，講第一個重點。</p><p><b>17–25 秒：內容（重點二～三）</b>　繼續拍貨或動作，講其餘重點，一句話一個畫面。</p><p><b>25–30 秒：最後一件小事</b>　拍回你的臉，請觀眾做一件很小的事。</p></div></details><details class="chap"><summary>拍之前檢查 10 項</summary><div class="body"><p class="note">全部打勾，再按錄影。</p><div class="chk"><input type="checkbox" id="c0"><label for="c0"><b>1. 擦鏡頭</b>：手指沾過魚、肉、油，先擦乾淨。</label></div><div class="chk"><input type="checkbox" id="c1"><label for="c1"><b>2. 手機直著拿</b>：像拿一張名片，不要橫著拍。</label></div><div class="chk"><input type="checkbox" id="c2"><label for="c2"><b>3. 在自己攤位拍</b>：菜、魚、招牌，就是最好的背景。</label></div><div class="chk"><input type="checkbox" id="c3"><label for="c3"><b>4. 身後要有東西</b>：人離背景遠一點，背後有貨架或招牌。</label></div><div class="chk"><input type="checkbox" id="c4"><label for="c4"><b>5. 講話拍到胸口以上</b>：表情才看得見。</label></div><div class="chk"><input type="checkbox" id="c5"><label for="c5"><b>6. 先遠後近</b>：先拍整個攤位，再拍到腰部，最後拍手上特寫。</label></div><div class="chk"><input type="checkbox" id="c6"><label for="c6"><b>7. 想動手機</b>：靠近、後退、跟著人走，一支影片只用一種。</label></div><div class="chk"><input type="checkbox" id="c7"><label for="c7"><b>8. 別切到頭、手、腳</b>：手機不要歪，手肘貼身體或靠著架子。</label></div><div class="chk"><input type="checkbox" id="c8"><label for="c8"><b>9. 臉要有光</b>：亮的方向在斜前方，別背對強光。</label></div><div class="chk"><input type="checkbox" id="c9"><label for="c9"><b>10. 對著一位熟客講話</b>：講錯就停一下重講，錄影不關，剪的時候再處理。</label></div></div></details><details class="chap"><summary>CapCut 上字幕 6 步驟</summary><div class="body"><div class="card"><div class="ct"><span class="n">1</span><span>第 1 步</span></div><div class="cb"><p>開 CapCut，點「新專案」，選你要的影片，可以一次選 1 到 3 段，按右下角「新增」。</p></div></div><div class="card"><div class="ct"><span class="n">2</span><span>第 2 步</span></div><div class="cb"><p>點畫面下方「文字」，再點「自動字幕」。</p></div></div><div class="card"><div class="ct"><span class="n">3</span><span>第 3 步</span></div><div class="cb"><p>語言選「國語」，按「開始」，等它跑完（幾秒到一分鐘）。</p></div></div><div class="card"><div class="ct"><span class="n">4</span><span>第 4 步</span></div><div class="cb"><p>一句一句檢查錯字，菜名、魚名、地名最容易錯，點字幕就能改。</p></div></div><div class="card"><div class="ct"><span class="n">5</span><span>第 5 步</span></div><div class="cb"><p>字放大、選粗字體、白字加黑邊，拖到畫面下方約三分之一處。</p></div></div><div class="card"><div class="ct"><span class="n">6</span><span>第 6 步</span></div><div class="cb"><p>點右上角「匯出」選 1080p，「儲存到相簿」，再貼到 IG、FB、Threads、YouTube Shorts。</p></div></div><p>小提醒：背景音樂要比人聲小；字幕一次最多兩行。</p><p>接片 3 步：① 新專案　② 依序點：開頭→中間→結尾（會出現 1 2 3）　③ 按新增</p></div></details><details class="chap"><summary>每週 30 分鐘流程</summary><div class="body"><p class="note">前兩週一定會超時，很正常，之後就會越來越快。</p><div class="card"><div class="ct"><span>0–2 分</span></div><div class="cb"><p><b>挑題</b>：從題材抽屜挑 5 題（簡版 3 題）。</p></div></div><div class="card"><div class="ct"><span>2–6 分</span></div><div class="cb"><p><b>叫 AI 寫腳本</b>：用提示詞 1，一次貼 5 題。</p></div></div><div class="card"><div class="ct"><span>6–8 分</span></div><div class="cb"><p><b>唸熟</b>：只記鉤子那句＋三個重點。</p></div></div><div class="card"><div class="ct"><span>8–18 分</span></div><div class="cb"><p><b>拍攝</b>：尖峰過後在攤位拍，每支拍 2～3 次挑最好的。</p></div></div><div class="card"><div class="ct"><span>18–27 分</span></div><div class="cb"><p><b>上字幕</b>：CapCut 每支約 2 分鐘。</p></div></div><div class="card"><div class="ct"><span>27–30 分</span></div><div class="cb"><p><b>排順序</b>：5 支排成一週，每天發一支，先存草稿。</p></div></div><p>平常一天 1 分鐘：客人問的問題、今天發生的事，用手機備忘錄記一句話（題材抽屜）。沒時間的週只做 3 支，寧可少也不要斷。</p><p>只存跟你差不多大的攤位拍的影片，而且只存最近半年的。大帳號拍得好看，但他們的做法你學不來。</p></div></details><details class="chap"><summary>AI 小編提示詞 5 則</summary><div class="body"><p>整段照抄進 ChatGPT，把【　】換成自己的資料。不要貼客人的全名、電話、住址；AI 寫的要自己看過再用。</p><div class="callout"><b>按下面的「📋 複製」就能複製；按了沒反應，就長按灰底框的文字選取。</b></div><h3>提示詞 1　寫 30 秒腳本</h3><div class="code" id="pr0">你現在是我的短影音小編。我是傳統市場的<span class="r">【魚】</span>攤（請換成你的攤位，例如：豬肉攤、麵攤、菜攤），老闆是我本人，開店<span class="r">【二十】</span>年，說話風格是<span class="r">【親切、有點幽默】</span>。
+請幫我寫一支 30 秒、用一支手機直拍就能完成的短影音腳本。
+主題：<span class="r">【教新手挑魚的三個方法】</span>
+影片類型：<span class="r">【教知識】</span>（可換成：曬過程／講故事／傳人情）
+
+請照這四步寫：
+1. 開頭 3 秒：一句讓路過的人停下來的話，15～25 字，最好是否定句，例如「別再說……了」。
+2. 3～8 秒：告訴觀眾「等一下有什麼好東西」。
+3. 8～25 秒：最多 3 個重點，順序是「簡單、稍難、簡單」，像跟熟客聊天，不要用專業術語。
+4. 25～30 秒：請觀眾做一件小事（例如留言某個關鍵字、或來攤位找我），並預告下一支。
+
+輸出成表格，三欄：秒數｜鏡頭（用一支手機拍得到的畫面，例如「拍到腰部以上」「特寫手在切肉」）｜逐字旁白。
+規則：全程正體中文、台灣用語；旁白總共不超過 140 字；不要誇大功效、不要說「最好」「第一」；不要貶低其他攤位。</div><button class="btn copy" type="button" data-target="pr0">📋 複製</button><h3>提示詞 2　想標題（開場第一句）</h3><div class="code" id="pr1">你現在是我的小編。我是傳統市場的<span class="r">【豬肉】</span>攤，開店<span class="r">【十五】</span>年。
+請根據下面這支影片的內容，幫我想 10 句「影片開頭的第一句話」（也可以當標題），每句 25 字以內。
+影片內容：<span class="r">【貼上你的腳本，或用一句話說明，例如：教年輕爸媽挑好肉的三個方法】</span>
+
+請混合這五種寫法，各 2 句：
+1. 否定句（例如「別再說……了」）
+2. 帶數字（例如「一百塊……」）
+3. 問句（例如「你知道……嗎？」）
+4. 「你是不是也……」（點出客人吃虧的事）
+5. 借最近的節日或天氣（例如中秋、颱風、天氣轉涼）
+
+全程正體中文、台灣口語，不要用行銷術語。最後請標出你認為最容易讓人停下來的前 3 句，並用一句話說明原因。</div><button class="btn copy" type="button" data-target="pr1">📋 複製</button><h3>提示詞 3　回留言</h3><div class="code" id="pr2">你現在是我的小編，幫我回覆客人的留言。我是傳統市場的<span class="r">【麵】</span>攤，語氣要親切、像跟熟客聊天，每則回覆 50 字內，不吵架、不說教。
+我的營業資訊：<span class="r">【新北板橋黃石市場，每天早上 6 點到中午 12 點，週一公休，可以現場點也可以 LINE 預訂，可用現金、LINE Pay】</span>（請換成你的資料）
+
+以下是客人的留言，請每則各給我 2 種回法，讓我挑一個：
+<span class="r">【把留言貼在這裡，一則一行】</span>
+
+規則：
+1. 客人問價錢，請引導「來攤位看看」，並說明價格以現場為準。
+2. 客人抱怨或批評，先感謝、再說明、再問可以怎麼幫他，不要辯解。
+3. 不要透露我的電話與住址。
+4. 不確定的資訊，請標出「請老闆確認」，不要自己編。
+5. 全程正體中文、台灣用語。</div><button class="btn copy" type="button" data-target="pr2">📋 複製</button><h3>提示詞 4　寫貼文（Facebook、Threads 用）</h3><div class="code" id="pr3">你是我的小編。我是傳統市場的<span class="r">【蔬果】</span>攤。請幫我寫一篇要貼在 Facebook 和 Threads 的貼文，約 100～150 字。
+今天的事：<span class="r">【例如：今天凌晨進到很漂亮的高麗菜，又脆又甜】</span>
+
+寫法：
+1. 第一行要抓人，要有畫面（例如天氣、時間、菜的樣子）。
+2. 中間講今天的特色，或一個跟客人之間的小故事。
+3. 最後一行請大家做一件小事（例如：來攤位說暗號，送你一把蔥）。
+4. 語氣像跟熟客講話，最後加 3 個標籤。
+5. 不要誇大、不用專有名詞、正體中文台灣用語。
+
+請給我兩個版本：親切版、幽默版。</div><button class="btn copy" type="button" data-target="pr3">📋 複製</button><h3>提示詞 5　想題材</h3><div class="code" id="pr4">你是我的小編。我是傳統市場的<span class="r">【魚】</span>攤，賣<span class="r">【新鮮海魚和現切魚片】</span>，開店<span class="r">【二十】</span>年，我的特色是<span class="r">【每天凌晨到基隆挑魚】</span>。
+請幫我想 20 個短影音題材，分成四類，每類 5 個：
+1. 曬過程：我每天做的事
+2. 教知識：教客人怎麼挑、怎麼煮、怎麼保存
+3. 講故事：我的經歷、家傳、跟熟客之間的故事
+4. 傳人情：我跟熟客、鄰居攤位之間的人情味
+
+每個題材請寫成：「一句話標題」＋「我要拍什麼畫面（一支手機拍得到）」。
+要求：不需要特別的道具；可以在攤位上 3 分鐘內拍完；不要編造我沒說過的故事，需要我提供真實細節的地方，請標「請補：……」；全程正體中文、台灣用語。</div><button class="btn copy" type="button" data-target="pr4">📋 複製</button></div></details><h2>不用拍得很好，先拍第一支。</h2><p>慢慢來，比較快。你的攤位，就是最好的攝影棚。</p><p><b>有問題找我：張書豪 Eric</b></p><p>加 LINE 拿電子版：好康傳出來</p><div class="footnav"><a class="btn ghost" href="../">回首頁</a><a class="btn line" href="https://line.me/R/ti/p/@898edwac">回 LINE 找 Eric</a><footer>好康傳出來｜做得好，也要有人知道</footer></div>
+</div>
+<script>
+(function(){
+  var btns=document.querySelectorAll('.copy');
+  function flash(btn,txt,ok,ms){btn.textContent=txt;if(ok){btn.classList.add('ok');}
+    setTimeout(function(){btn.textContent='📋 複製';btn.classList.remove('ok');},ms);}
+  function selectEl(el){try{var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);return true;}catch(e){return false;}}
+  function fallback(el,btn){
+    var ok=false;
+    try{ selectEl(el); ok=document.execCommand('copy'); }catch(e){ ok=false; }
+    if(ok){ flash(btn,'✓ 已複製',true,2000); } else { flash(btn,'已選取，請長按→拷貝',false,4000); }
+  }
+  for(var i=0;i<btns.length;i++){
+    btns[i].onclick=(function(btn){return function(){
+      var el=document.getElementById(btn.getAttribute('data-target'));
+      var txt=el.textContent;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){ selectEl(el); flash(btn,'✓ 已複製',true,2000); },function(){ fallback(el,btn); });
+      } else { fallback(el,btn); }
+    };})(btns[i]);
+  }
+})();
+</script>
+</body>
+</html>
