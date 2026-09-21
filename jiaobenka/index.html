@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>好康傳出來｜腳本卡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FFFFFF;color:#1A1A1A;font-family:"Iansui","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:20px;line-height:1.6;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:12px 16px 40px}
+.top{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:10px 0}
+h1{font-size:28px;line-height:1.4;margin:6px 0 14px;color:#1A1A1A}
+h2{font-size:26px;line-height:1.4;margin:0 0 12px;color:#1F6F4A}
+h3{font-size:22px;line-height:1.4;margin:22px 0 8px;color:#1F6F4A}
+p{margin:0 0 12px}
+b{color:#14532D}
+.r{color:#E8590C;font-weight:bold}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:64px;margin:0 0 14px;padding:10px 14px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;text-decoration:none;cursor:pointer}
+.btn small{display:block;font-size:18px;font-weight:normal;margin-top:2px}
+.btn.col{flex-direction:column}
+.btn.line{background:#06C755}
+.btn.orange{background:#E8590C}
+.btn.ghost{background:#FFFFFF;color:#1F6F4A;border:3px solid #1F6F4A}
+.callout{font-size:22px;font-weight:bold;line-height:1.5;color:#1A1A1A;background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:12px 14px;margin:0 0 16px}
+.callout b{color:#B03A00}
+.note{font-size:18px;color:#555555;margin:0 0 12px}
+.card{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF;overflow:hidden}
+.card .ct{font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;padding:8px 14px;display:flex;align-items:center}
+.card .ct .n{font-size:40px;line-height:1;margin-right:12px;flex:none}
+.card .cb{padding:12px 14px 4px;background:#F3F8F5}
+.card .cb p{margin:0 0 10px}
+.ci{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 16px}
+.ci .t{font-size:22px;font-weight:bold;color:#1F6F4A;margin:0 0 6px}
+details.chap{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 16px;background:#FFFFFF}
+details.chap>summary{list-style:none;cursor:pointer;min-height:64px;padding:12px 14px;font-size:24px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border-radius:10px;display:flex;align-items:center;justify-content:space-between}
+details.chap>summary::-webkit-details-marker{display:none}
+details.chap>summary::after{content:"＋ 打開";font-size:18px;font-weight:normal;flex:none;margin-left:10px}
+details.chap[open]>summary{border-radius:10px 10px 0 0}
+details.chap[open]>summary::after{content:"－ 收起"}
+details.chap>.body{padding:14px 12px 4px}
+.chk{display:flex;align-items:flex-start;margin:0 0 12px;font-size:20px}
+.chk input{width:30px;height:30px;flex:none;margin:2px 12px 0 0;accent-color:#1F6F4A}
+.chk label{display:block}
+.code{font-family:"Menlo","Consolas","Iansui","PingFang TC",monospace;font-size:17px;line-height:1.6;background:#F1F1F1;border-left:6px solid #6B7F8E;border-radius:8px;padding:12px;margin:0 0 10px;white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;-webkit-user-select:text;user-select:text;color:#222222}
+.copy{background:#1F6F4A}
+.copy.ok{background:#E8590C}
+.footnav{border-top:2px solid #DDE9E2;margin-top:28px;padding-top:16px}
+footer{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 16px}
+.seg button{min-height:72px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.3;color:#1F6F4A;background:#FFFFFF;border:3px solid #1F6F4A;border-radius:14px;padding:6px;cursor:pointer}
+.seg button[aria-pressed=true]{background:#1F6F4A;color:#FFFFFF}
+.sc{margin:0 0 20px}
+.sc[hidden]{display:none}
+.sc .st{font-size:26px;font-weight:bold;line-height:1.4;color:#1F6F4A;margin:0 0 10px}
+.seg5{border:3px solid #1F6F4A;border-radius:14px;margin:0 0 12px;overflow:hidden;background:#F3F8F5}
+.seg5 .sh{background:#1F6F4A;color:#FFFFFF;font-size:22px;font-weight:bold;padding:6px 14px}
+.seg5 .sh small{font-size:18px;font-weight:normal;margin-left:8px}
+.seg5 .sb{padding:10px 14px 2px}
+.seg5 .sb p{margin:0 0 10px}
+.hint{font-size:22px;font-weight:bold;text-align:center;color:#1F6F4A;padding:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="top" href="../">← 回首頁</a><h1>腳本卡</h1><p class="note">先點你賣什麼，下面就只出現你的腳本卡。</p><div class="seg" id="seg"><button type="button" data-s="0" aria-pressed="false">魚攤</button><button type="button" data-s="1" aria-pressed="false">豬肉攤</button><button type="button" data-s="2" aria-pressed="false">熟食／麵攤</button><button type="button" data-s="3" aria-pressed="false">蔬果攤</button></div><div class="hint" id="hint">👆 先點你賣什麼</div><div class="sc" data-s="0" hidden><div class="st">魚攤 × 曬過程</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>特寫：手電筒掃過一整排魚，手機慢慢推近</p><p><b>講：</b>「現在凌晨四點，我在<span class="r">【基隆】</span>，搶今天最好的魚。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上自拍，背景是魚市裡走動的人</p><p><b>講：</b>「我賣魚<span class="r">【二十】</span>年，功夫都在天亮前。等一下告訴你我怎麼挑。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>三個快切：魚眼睛、手按魚身、翻開魚鰓</p><p><b>講：</b>「第一看眼睛，要亮要凸。第二用手按，肉要彈回來。第三翻魚鰓，要鮮紅色。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>搬箱上車，再切到攤位擺魚</p><p><b>講：</b>「最後一箱差點被搶走，還好我手比較快。六點前，魚就上<span class="r">【黃石市場】</span>攤位。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「想知道怎麼挑？留言『挑魚』，明天拍給你看。」</p></div></div></div><div class="sc" data-s="0" hidden><div class="st">魚攤 × 教知識</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>近景：手拿一條魚對鏡頭</p><p><b>講：</b>「第一次買魚怕買錯？三秒學會認新鮮。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，魚放在檯上</p><p><b>講：</b>「我賣魚<span class="r">【二十】</span>年，教你三招，以後在哪買都不吃虧。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>特寫：眼睛、按魚身、魚鰓，角落打字卡 1 2 3</p><p><b>講：</b>「一看眼睛，要亮要凸。二按魚身，要彈回來。三看魚鰓，要鮮紅色。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>現場處理一條<span class="r">【鱸魚】</span></p><p><b>講：</b>「三個都過，才是好魚。今天這批是<span class="r">【基隆】</span>來的，我現在處理給你看。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「想要這三招的小卡，留言『挑魚』，我傳給你。」</p></div></div></div><div class="sc" data-s="1" hidden><div class="st">豬肉攤 × 曬過程</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>近景：手拿一整塊肉對鏡頭</p><p><b>講：</b>「同一塊肉，我切成三種，滷、炒、煮湯各一種。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，站在攤位後</p><p><b>講：</b>「我做豬肉<span class="r">【三十】</span>年，難的不是切，是切對。等一下給你看。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>刀落下，三種部位分開排好</p><p><b>講：</b>「五花給你滷肉，里肌給你炒菜，排骨給你煮湯。刀怎麼下，差很多。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>中景：一片一片切得整整齊齊</p><p><b>講：</b>「剛剛差點切歪，還好<span class="r">【三十】</span>年的手感沒退。你看，這片多整齊。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「你今天想煮什麼？留言告訴我，我幫你挑。」</p></div></div></div><div class="sc" data-s="1" hidden><div class="st">豬肉攤 × 教知識</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>近景：手拿一塊肉對鏡頭</p><p><b>講：</b>「第一次買肉的爸媽，看這裡，三秒學會挑好肉。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，肉放在砧板上</p><p><b>講：</b>「很多人買回家又乾又腥。我賣肉<span class="r">【三十】</span>年，教你三招。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>特寫：每一招出現一次，角落打字卡 1 2 3</p><p><b>講：</b>「一看顏色，粉紅有光澤。二講用途，滷炒煮我幫你挑。三用手按，會彈回來。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>中景：刀落下，現切一片一片</p><p><b>講：</b>「照這三招，在哪個市場買肉都不吃虧。我切給你看，滷肉選五花。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「三招做成小卡，留言『挑肉』，我傳給你。」</p></div></div></div><div class="sc" data-s="2" hidden><div class="st">熟食／麵攤 × 講故事</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>特寫：冒白煙的一鍋湯（故事請換成你自己的真事）</p><p><b>講：</b>「這鍋湯，我<span class="r">【阿公】</span>熬了<span class="r">【三十】</span>年。有一天，我差點整鍋倒掉。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，站在爐前，背後是舊招牌</p><p><b>講：</b>「<span class="r">【五十】</span>年老攤，我是第<span class="r">【三】</span>代。那天湯頭熬過頭，變苦了。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>近景：舀一口皺眉，再把鍋子端離爐火</p><p><b>講：</b>「有人說客人喝不出來。但<span class="r">【阿公】</span>說，客人一口就知道你有沒有用心。我把整鍋倒掉重熬。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>全景：掛出「晚開一小時」牌子，熟客坐下等</p><p><b>講：</b>「那天晚開一小時，熟客說：沒關係，我等，等的就是你這一碗。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「賣的是麵，守的是味道。你最愛我們家哪個味道？留言告訴我。」</p></div></div></div><div class="sc" data-s="2" hidden><div class="st">熟食／麵攤 × 曬過程</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>特寫：鍋裡一鍋冷水，開火</p><p><b>講：</b>「凌晨四點，一鍋冷水，我要熬出今天的第一碗湯。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，站在爐前</p><p><b>講：</b>「我做<span class="r">【麵】</span><span class="r">【三十】</span>年，好湯頭要等。等一下告訴你三個關鍵。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>縮時快轉：下骨頭、撈浮沫、轉小火</p><p><b>講：</b>「第一，骨頭先汆燙。第二，浮沫撈乾淨。第三，滾了就轉小火慢慢熬。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>鍋子差點滾出來，趕緊關小火；湯色特寫</p><p><b>講：</b>「剛剛一分神差點滾出來，還好我手快。你看，湯色金黃透亮。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>盛一碗湯對鏡頭</p><p><b>講：</b>「想看我怎麼熬？留言『湯頭』，下次拍給你看。」</p></div></div></div><div class="sc" data-s="3" hidden><div class="st">蔬果攤 × 教知識</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>近景：手拿一把葉菜對鏡頭</p><p><b>講：</b>「葉菜買回家隔天就爛？三秒教你放三天還脆。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，站在菜攤前</p><p><b>講：</b>「我賣菜<span class="r">【二十】</span>年，回家只要做三件事。等一下一次教你。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>三個快切：擦乾水氣、報紙包起來、直立放冰箱</p><p><b>講：</b>「第一，別洗，先擦乾水氣。第二，用報紙包起來。第三，根部朝下直立放。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>兩把菜對比：這把是<span class="r">【三天】</span>前放的</p><p><b>講：</b>「這把是<span class="r">【三天】</span>前放的，你看還這麼脆。照著做，菜錢省下來。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「想學別的菜怎麼放？留言『保存』，我下次教你。」</p></div></div></div><div class="sc" data-s="3" hidden><div class="st">蔬果攤 × 傳人情</div><div class="callout">現場這樣拍：只拍 0–8 秒和 25–30 秒。中間那段回攤位再補。</div><div class="seg5"><div class="sh">0–3 秒　開頭吆喝</div><div class="sb"><p><b>拍：</b>近景：手拿一袋菜（故事請換成你自己遇過的真事）</p><p><b>講：</b>「這袋菜，是阿嬤送我的。因為我先讓她把菜拿回去。」</p></div></div><div class="seg5"><div class="sh">3–8 秒　勾起期待</div><div class="sb"><p><b>拍：</b>腰部以上，站在攤位前</p><p><b>講：</b>「<span class="r">【上個月】</span>有位阿嬤買菜忘了帶錢。我說，先拿回去，下次再給。」</p></div></div><div class="seg5"><div class="sh">8–17 秒　講重點<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>只拍手遞菜袋、背影；要拍臉先問過對方</p><p><b>講：</b>「她一直說不好意思，我說沒關係，鄰居嘛。她拎著菜，慢慢走回去。」</p></div></div><div class="seg5"><div class="sh">17–25 秒　更厲害的<small>（補拍）</small></div><div class="sb"><p><b>拍：</b>畫面：隔天早上，阿嬤帶來一袋菜</p><p><b>講：</b>「隔天一早，她不只還錢，還帶一袋自己種的<span class="r">【地瓜葉】</span>給我。」</p></div></div><div class="seg5"><div class="sh">25–30 秒　收尾小事</div><div class="sb"><p><b>拍：</b>近景微笑對鏡頭</p><p><b>講：</b>「做生意賺錢，也賺人情。你有遇過這種事嗎？留言告訴我。」</p></div></div></div><div class="callout"><span class="r">【】</span>裡換成你自己的真實情況。沒發生過的事不要唸。</div><div class="footnav"><a class="btn" href="../mingtian/">看「明天三步」</a><a class="btn" href="../nine/">選九宮格</a><a class="btn line" href="https://line.me/R/ti/p/@898edwac">回 LINE 找 Eric</a><a class="btn ghost" href="../">回首頁</a><footer>好康傳出來｜做得好，也要有人知道</footer></div>
+</div>
+<script>
+(function(){
+  var KEY='haokang_script_stall_v1';
+  var btns=document.querySelectorAll('#seg button'), cards=document.querySelectorAll('.sc'), hint=document.getElementById('hint');
+  function show(i){
+    for(var a=0;a<btns.length;a++){btns[a].setAttribute('aria-pressed',String(a===i));}
+    for(var c=0;c<cards.length;c++){cards[c].hidden=(+cards[c].getAttribute('data-s')!==i);}
+    hint.hidden=true;
+  }
+  for(var j=0;j<btns.length;j++){
+    btns[j].onclick=(function(i){return function(){
+      show(i);
+      try{localStorage.setItem(KEY,String(i));}catch(e){}
+      var f=document.querySelector('.sc:not([hidden])'); if(f&&f.scrollIntoView){f.scrollIntoView();}
+    };})(j);
+  }
+  try{var v=localStorage.getItem(KEY); if(v!==null&&+v>=0&&+v<btns.length){show(+v);}}catch(e){}
+})();
+</script>
+</body>
+</html>
