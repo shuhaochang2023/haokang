@@ -43,10 +43,11 @@ label.q{display:block;font-size:20px;margin:18px 0 8px;font-weight:bold}
 .cut{border:3px solid #1F6F4A;border-radius:16px;overflow:hidden;margin:0 0 16px;background:#FFFFFF}
 .cut .h{background:#1F6F4A;color:#FFFFFF;font-weight:bold;font-size:20px;padding:8px 14px}
 .cut .h small{font-weight:normal;font-size:17px;margin-left:6px}
-.cut .pic{display:flex;gap:12px;align-items:center;padding:12px 14px;background:#F4F8F5}
-.cut .pic svg{width:120px;height:auto;flex:none}
-.cut .pic p{margin:0;font-size:19px;line-height:1.5}
-.cut .say{padding:14px;font-size:26px;line-height:1.6;font-weight:bold}
+.cut .pic{display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 14px;background:#F4F8F5}
+.cut .pic svg{width:72%;max-width:260px;height:auto}
+.cut .pic p{margin:0;font-size:24px;line-height:1.45;text-align:center;font-weight:bold;text-wrap:balance}
+.cut .pic p small{display:block;font-size:20px;font-weight:normal;margin-top:4px}
+.cut .say{padding:16px 14px;font-size:30px;line-height:1.55;font-weight:bold;text-wrap:pretty}
 .cut .say .lb{display:block;font-size:17px;font-weight:normal;color:#555;margin-bottom:4px}
 .seg{border:3px solid #1F6F4A;border-radius:12px;margin:0 0 12px;overflow:hidden}
 .seg .h{background:#1F6F4A;color:#FFFFFF;font-weight:bold;font-size:20px;padding:6px 12px}
@@ -117,6 +118,8 @@ var Q3 = [["懂行的師傅","教客人怎麼挑、怎麼做"],["貼心的鄰居
 // 腳本範本：TPL[r][c] = 5 段台詞。{貨}{攤} 自動帶入；【】是要換成自己的
 // ===== 腳本規則（固定）=====
 // 成片 20 秒 = 片頭 1 秒 + 5 個 Cut（共 16 秒）+ 片尾 3 秒。一個 Cut 拍一段、講一句，一句最多 14 個字（約 3 秒）。
+// 手機怎麼拿（給 70 歲長輩的一句話構圖提示，依 Cut 1～5）
+var HOLD = ["手機直拿，離臉一隻手臂","往後退兩步，拍到腰","手機靠近你的手和貨","站遠一點，整個攤位入鏡","手機直拿，離臉一隻手臂，笑一個"];
 var SEGS = [["0–3 秒","開頭吆喝","",'近景，對著鏡頭講'],["3–6 秒","勾起期待","",'拍到腰部以上，背後是攤位'],
             ["6–10 秒","講重點","",'手部特寫，邊做邊講'],["10–13 秒","更厲害的","",'拍給客人看，或拍整個攤位'],
             ["13–16 秒","收尾小事","",'近景，微笑看鏡頭']];
@@ -167,9 +170,9 @@ function cutHTML(i){
   var lines=TPL[state.r][state.c], h='';
   h+='<div class="progress">第 '+(i+1)+'／5 句</div><div class="bar"><i style="width:'+((i+1)*20)+'%"></i></div>';
   h+='<div class="cut"><div class="h">第 '+(i+1)+' 句　'+SEGS[i][1]+'<small>'+SEGS[i][0]+'</small></div>';
-  h+='<div class="pic">'+shotSVG(i)+'<p><b>📷 怎麼拍</b><br>'+SEGS[i][3]+'</p></div>';
+  h+='<div class="pic">'+shotSVG(i)+'<p>📱 '+HOLD[i]+'<small>'+SEGS[i][3]+'</small></p></div>';
   h+='<div class="say"><span class="lb">🗣 這一句要講</span>「'+mark(fill(lines[i]))+'」</div></div>';
-  h+='<p class="tip">【】裡換成你自己的。沒發生過的事不要唸。一句拍一段就好，講錯重拍這一句。</p>';
+  h+='<p class="tip" style="font-size:20px">講錯了，重拍這一句就好。</p>';
   if(i<4){ h+='<button class="btn" id="nextcut">✅ 這句拍好了，下一句</button>'; }
   else {
     h+='<a class="btn line" href="'+esc(LINE_CHAT)+'">✅ 5 句都拍好了，傳到 LINE</a>';
