@@ -176,6 +176,7 @@ function cutHTML(i){
   if(i<4){ h+='<button class="btn" id="nextcut">✅ 這句拍好了，下一句</button>'; }
   else {
     h+='<a class="btn line" href="'+esc(LINE_CHAT)+'">✅ 5 句都拍好了，傳到 LINE</a>';
+    h+='<a class="btn ghost" href="../lizi/">看別人怎麼拍（同行的例子）</a>';
     h+='<p class="tip">打開 LINE 後點選單的「④ 交作業」，照順序一句一句傳，最後按「傳好了」。我們會幫你接成一支、上字幕。</p>';
   }
   h+='<button class="back" id="prevcut">'+(i?'← 上一句':'← 回九宮格')+'</button>';
@@ -255,6 +256,7 @@ function resultHTML(){
   h += '</div><p class="legend">點別的格子，可以換一個主打試試看</p>';
   h += '<div class="card"><p class="t">你的一句話定位</p><p style="margin:0">'+esc(p.sentence)+'</p></div>';
   h += '<button class="btn orange big" id="toscript">確定，幫我出腳本 →</button>';
+  h += '<a class="btn ghost" href="../lizi/">想先看別人怎麼拍？</a>';
   h += '<p class="tip">一共 5 句，一句拍一段（每段 3 秒左右），每一句都有拍法圖。剪好是一支 20 秒的影片。</p>';
   h += '<div class="links"><button id="redo">重新選一次</button><a href="../">回首頁</a></div>';
   return h;
