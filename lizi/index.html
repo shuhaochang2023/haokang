@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>好康傳出來｜別人怎麼拍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Iansui&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FFFFFF;color:#1A1A1A;font-family:"Iansui","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:20px;line-height:1.6;-webkit-text-size-adjust:100%;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:16px 16px 40px}
+h1{font-size:28px;line-height:1.4;margin:0 0 8px;color:#1A1A1A}
+p{margin:0 0 12px}
+.sub{font-size:20px;color:#1F6F4A;font-weight:bold;margin:0 0 18px}
+.back{display:inline-block;font-size:20px;color:#1F6F4A;text-decoration:underline;padding:10px 4px;background:none;border:0;font-family:inherit;cursor:pointer;margin:0 0 6px}
+.catgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 8px}
+.catbtn{display:flex;align-items:center;justify-content:center;text-align:center;min-height:64px;padding:10px 10px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.35;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;cursor:pointer}
+.catbtn:active{background:#164F35}
+.catbtn .cnt{display:block;font-size:15px;font-weight:normal;margin-top:2px;color:#DDE9E2}
+h2{font-size:26px;line-height:1.4;margin:4px 0 4px;color:#1A1A1A}
+.catnote{font-size:18px;color:#555;margin:0 0 16px}
+.warn{background:#FFF1E8;border-left:8px solid #E8590C;border-radius:8px;padding:10px 12px;font-size:18px;font-weight:bold;margin:0 0 16px}
+.card{border:3px solid #1F6F4A;border-radius:14px;padding:14px;margin:0 0 18px;background:#FFFFFF}
+.card .name{font-size:24px;font-weight:bold;color:#1F6F4A;margin:0 0 6px;line-height:1.35}
+.tags{margin:0 0 10px}
+.tag{display:inline-block;font-size:16px;font-weight:bold;border-radius:20px;padding:3px 12px;margin:0 6px 6px 0}
+.tag.region{background:#EEF6F1;color:#1F6F4A}
+.tag.region.cn{background:#FDEDEB;color:#B03A00}
+.tag.plat{background:#F1F1F1;color:#444}
+.tag.type{background:#FFF1E8;color:#E8590C}
+.note{font-size:16px;color:#B03A00;font-weight:bold;background:#FFF7E0;border-radius:8px;padding:6px 10px;margin:0 0 10px}
+.row{margin:0 0 8px;font-size:20px;line-height:1.5}
+.row b{display:block;font-size:15px;font-weight:normal;color:#666;margin-bottom:2px}
+.card .go{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:60px;margin:10px 0 0;padding:8px 10px;font-family:inherit;font-size:22px;font-weight:bold;color:#FFFFFF;background:#E8590C;border-radius:14px;text-decoration:none}
+.card .go:active{background:#B03A00}
+.foot{border-top:2px solid #DDE9E2;margin-top:24px;padding-top:16px;display:flex;flex-direction:column;gap:12px}
+.btn{display:flex;align-items:center;justify-content:center;text-align:center;width:100%;min-height:64px;padding:10px 14px;font-family:inherit;font-size:22px;font-weight:bold;line-height:1.4;color:#FFFFFF;background:#1F6F4A;border:0;border-radius:14px;text-decoration:none;cursor:pointer}
+.btn.orange{background:#E8590C}
+footer.pagefoot{font-size:18px;text-align:center;color:#1F6F4A;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap"><div id="app"></div></div>
+<script>
+// ===== 資料區 =====
+// region: tw / cn　type: 曬過程／教知識／講故事／聊觀點
+var CATS = [
+ {id:"fish", label:"魚"},
+ {id:"pork", label:"豬肉"},
+ {id:"poultry", label:"雞鴨"},
+ {id:"veg", label:"菜"},
+ {id:"fruit", label:"水果"},
+ {id:"tofu", label:"豆腐"},
+ {id:"noodle", label:"麵"},
+ {id:"dry", label:"南北貨"},
+ {id:"pickle", label:"醃漬"},
+ {id:"drink", label:"飲料甜品"},
+ {id:"breakfast", label:"早餐"},
+ {id:"snack", label:"小吃熟食"},
+ {id:"bakery", label:"糕餅麵包"},
+ {id:"tea", label:"茶"},
+ {id:"flower", label:"花"},
+ {id:"hardware", label:"五金"},
+ {id:"cloth", label:"服飾布料"},
+ {id:"tailor", label:"修改衣服"},
+ {id:"shoe", label:"鞋"},
+ {id:"watch", label:"鐘錶"},
+ {id:"barber", label:"理髮"},
+ {id:"herb", label:"中藥"}
+];
+
+var CARDS = [
+// ---- 魚 ----
+{cat:"fish", name:"阿澎（劉芃芃）", region:"tw", platform:"IG", type:"講故事",
+ why:"她在市場顧攤，被路人隨手拍下影片，一下子全台灣新聞都在報。",
+ learn:"日常顧攤、跟客人聊天的畫面，不用刻意設計，讓人自然拍到就好。",
+ url:"https://www.instagram.com/anastasia918/"},
+{cat:"fish", name:"殺魚哥（李明）", region:"cn", platform:"短影音平台", type:"曬過程",
+ why:"110 萬人追蹤他，因為他殺一條魚只要 40 秒，大家都想看他的手速。",
+ learn:"把自己攤位上最快、最熟練的一個動作（殺魚、秤重）直接錄下來。",
+ url:"https://www.thecover.cn/news/1540174"},
+{cat:"fish", name:"惠姐吖", region:"cn", platform:"抖音", type:"曬過程",
+ why:"30 萬人追蹤她，一鏡到底處理魚的畫面，證明女生也能做粗活。",
+ learn:"處理魚貨全程一次拍完不剪接，配一句態度的話當字幕。",
+ url:"https://baike.baidu.com/item/惠姐吖/66138663"},
+{cat:"fish", name:"小玥（漁妹妹）", region:"cn", platform:"短影音平台", type:"曬過程",
+ why:"一場直播近 10 萬人在看，因為她 3 分鐘就能處理好一條 10 斤重的魚。",
+ learn:"平常在做的事直接開直播，不用等「準備好」才開始拍。",
+ url:"https://m.thepaper.cn/newsDetail_forward_18914538"},
+
+// ---- 豬肉 ----
+{cat:"pork", name:"東門信義肉舖／豬肉西施", region:"tw", platform:"IG", type:"講故事＋教知識",
+ why:"快 9 萬人追蹤她，因為她是三代接班的肉舖，刀工好、又懂每個部位。",
+ learn:"開頭直接秤重、下刀，中段講一個部位的小知識。",
+ url:"https://www.instagram.com/butcher_charlenez/"},
+{cat:"pork", name:"賣豬肉的西施", region:"cn", platform:"抖音", type:"講故事＋曬過程",
+ why:"50 萬人追蹤她，因為她打扮得漂漂亮亮，卻俐落地在殺豬分肉。",
+ learn:"拍出「你想不到我會做這行」的反差感，配一句簡單自我介紹。",
+ url:"https://baike.baidu.com/item/卖猪肉的西施/66155588"},
+{cat:"pork", name:"豬肉佬（黃小龍）", region:"cn", platform:"抖音", type:"教知識",
+ why:"他教大家怎麼挑豬肉、怎麼挑骨頭，連凌晨直播都有近 1,500 人在看。",
+ learn:"拍片時順便講一個「怎麼挑」的知識點，比只喊「便宜賣」更讓人記住。",
+ url:"https://baike.baidu.com/item/猪肉佬/65289429"},
+{cat:"pork", name:"呆呆（呆呆家）", region:"cn", platform:"短影音平台", type:"曬過程",
+ why:"一支殺豬分肉的影片，3 天就被看了超過一千萬次。",
+ learn:"不用打光、不用美肌，最有生活感的畫面直接拍，聲音雜訊都留著才真實。",
+ url:"https://roll.sohu.com/a/975942683_121622922"},
+
+// ---- 雞鴨 ----
+{cat:"poultry", name:"無情快刀手雞哥A", region:"cn", platform:"抖音", type:"講故事",
+ note:"風格偏煽情，看手法就好",
+ why:"20 萬人追蹤他，每支影片都在講客人來買雞鴨時發生的小故事。",
+ learn:"留意攤位上真實發生的小互動（多送一點、體諒老客人），拍下來就是一支故事。",
+ url:"https://baike.baidu.com/item/无情快刀手鸡哥A/66133612"},
+{cat:"poultry", name:"沈蘇皖（賣鴨達人）", region:"cn", platform:"抖音", type:"教知識＋曬過程",
+ why:"半年吸引 6 萬多人追蹤，很多粉絲特地跑到市場找他買雞鴨。",
+ learn:"邊工作邊順口教一個知識點（例如這隻要燉多久），比對鏡頭念稿自然。",
+ url:"https://baijiahao.baidu.com/s?id=1777517626274983969"},
+{cat:"poultry", name:"白菜（白菜GG）", region:"cn", platform:"短影音平台", type:"講故事",
+ why:"100 萬人追蹤她，因為她是設計系畢業，卻回家跟爸媽一起賣鴨肉。",
+ learn:"拍自己最快、最俐落的一個動作，搭一句真實心情，不用假裝很厲害。",
+ url:"https://baijiahao.baidu.com/s?id=1731974267852070208"},
+
+// ---- 菜 ----
+{cat:"veg", name:"王美成（王花仙）", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"一支影片被看了超過 250 萬次，因為她賣菜時會穿西裝打領帶。",
+ learn:"把當天最漂亮的幾樣菜另外擺一區，拍起來特別好看。",
+ url:"https://news.cctv.com/2020/11/12/ARTIuW9l3fBWkHkxl5n9H28s201112.shtml"},
+{cat:"veg", name:"趙衛紅（菜場畫家）", region:"cn", platform:"第三方報導", type:"講故事",
+ why:"上了電視節目，因為她 56 歲凌晨賣菜，賣完還在畫油畫。",
+ learn:"把自己賣菜以外的興趣也拍進影片，讓人記住你這個人。",
+ url:"https://news.qq.com/rain/a/20221017A06QM000"},
+{cat:"veg", name:"山西原平賣菜大爺", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"路人隨手拍了一張照片全網都在轉發，因為他把菜擦得乾乾淨淨、排得整整齊齊。",
+ learn:"出攤前多花兩分鐘把東西擦乾淨、排整齊，客人自然想拍照。",
+ url:"https://new.qq.com/rain/a/20240920V04O6W00"},
+
+// ---- 水果 ----
+{cat:"fruit", name:"連環泡有芒果", region:"tw", platform:"IG", type:"曬過程＋講故事",
+ why:"21 萬人追蹤她，靠 3 隻柯基狗把台南一間芒果冰果室拍成全國知名景點。",
+ learn:"固定用店裡的寵物當開場記憶點，再帶到產品。",
+ url:"https://www.instagram.com/corgimango/"},
+{cat:"fruit", name:"阿婆水果攤（通化夜市）", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"連輝達執行長黃仁勳都公開推薦，因為她 43 年來價格公道、半斤也可以拆賣。",
+ learn:"把「半份也能買」「價格算給你看」這種貼心小事直接講出來。",
+ url:"https://www.nownews.com/news/6441718"},
+{cat:"fruit", name:"謝洪英（水果嬢嬢）", region:"cn", platform:"抖音", type:"講故事＋教知識",
+ why:"3 萬多人追蹤她，因為她 49 歲自學英語，向外國遊客推銷水果。",
+ learn:"學幾句簡單外語招呼觀光客，順手拍下互動過程。",
+ url:"https://www.douyin.com/user/MS4wLjABAAAA_iOoIx8GgiNKDdhGtxH0-3ypQ9MLT188ofhWmJhSmPJXsuQJRP6Dbef0McCGixpt"},
+{cat:"fruit", name:"王中源（中源果農）", region:"cn", platform:"抖音", type:"教知識",
+ why:"近 300 萬人追蹤他，因為他教大家怎麼挑水果、講市場內幕行情。",
+ learn:"拍一支「今天這批貨怎麼挑才對」的知識型短片。",
+ url:"https://www.douyin.com/user/MS4wLjABAAAAQlKT9S0utWk5gs7Ka2OqmajUcQlgmkBs4S2x66UUJzk"},
+{cat:"fruit", name:"趙小瑜（水果超人）", region:"cn", platform:"快手", type:"教知識",
+ why:"530 萬人追蹤她，還上了央視節目，教大家怎麼判斷榴槤好不好。",
+ learn:"錄一支「教你怎麼挑」的 3 個判斷技巧短片，把自己變成專家。",
+ url:"https://finance.sina.com.cn/jjxw/2025-11-13/doc-infxfxpy5405962.shtml"},
+
+// ---- 豆腐 ----
+{cat:"tofu", name:"豆花莊（寧夏夜市）", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"黃仁勳、張忠謀都去吃過，因為這間 60 年老店的料幾乎全部自己做。",
+ learn:"把「我們的料都自己做、不加什麼」直接講清楚，讓老實變成賣點。",
+ url:"https://wanteatfood.com/52051"},
+{cat:"tofu", name:"李福貴", region:"cn", platform:"抖音", type:"講故事",
+ why:"790 萬人追蹤他，靠一句固定吆喝「打豆腐的來啦」讓人記住他。",
+ learn:"固定一句吆喝、開場白，每次出攤都講，變成攤位的記憶點。",
+ url:"https://m.thepaper.cn/newsDetail_forward_31193989"},
+{cat:"tofu", name:"高菊鳳（南門高老太臭豆腐）", region:"cn", platform:"第三方報導", type:"講故事",
+ why:"83 歲的她賣臭豆腐 26 年，堅持純天然手工做滷水，客人多到供不應求。",
+ learn:"把「用什麼料、怎麼做」講清楚，讓堅持變成故事。",
+ url:"https://www.sohu.com/a/122572823_115401"},
+{cat:"tofu", name:"吳秋月（川香秋月）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"1,000 多萬人追蹤她，一支磨豆花的影片一天就多了 50 萬人追蹤。",
+ learn:"把每天都在做、自己覺得「太平常」的動作直接拍下來。",
+ url:"https://m.thepaper.cn/baijiahao_16516568"},
+
+// ---- 麵 ----
+{cat:"noodle", name:"玖麵牛肉麵", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"藝人半夜拍片叫女友煮麵吃，老闆煮到暈眩抽筋的真實反應變成話題。",
+ learn:"想一個容易被玩諧音哏的店名或標語，順勢跟上網路討論。",
+ url:"https://news.ltn.com.tw/news/life/breakingnews/5545087"},
+{cat:"noodle", name:"拉麵哥（程運付）", region:"cn", platform:"抖音", type:"講故事",
+ why:"一度有 270 萬人追蹤他，因為他一碗拉麵 3 塊錢，多年來堅持不漲價。",
+ learn:"挑一樣商品長期堅持不漲價，主動跟客人講「這個我不會漲」。",
+ url:"https://www.sohu.com/a/453165721_612784"},
+{cat:"noodle", name:"藍田褲帶麵傳承人", region:"cn", platform:"第三方報導", type:"教知識",
+ why:"被請上電視節目，現場示範傳統手藝怎麼做出一碗麵。",
+ learn:"找機會示範「這碗麵是怎麼做出來的」全過程，越傳統越有賣點。",
+ url:"https://www.sohu.com/a/123961306_348939"},
+{cat:"noodle", name:"山西大同削麵師傅", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"路人隨手拍下他削麵的動作，官方媒體轉發後一支影片就有 43 萬人按讚。",
+ learn:"把手上最熟練、有節奏感的動作放慢速度拍一次，不用講話。",
+ url:"https://video.sina.cn/finance/2024-09-16/detail-incpkanq6600144.d.html"},
+
+// ---- 南北貨 ----
+{cat:"dry", name:"林區胡楊", region:"cn", platform:"抖音", type:"曬過程",
+ why:"一支影片 34 萬人按讚，因為她直接開箱「今天採到的木耳」，幾千斤秒賣光。",
+ learn:"把「今天到貨的乾貨」用一支影片直接開箱給客人看。",
+ url:"https://www.rmlt.com.cn/2021/0122/605874.shtml"},
+{cat:"dry", name:"皇上皇食品", region:"cn", platform:"抖音", type:"教知識／曬過程",
+ note:"85 年老字號品牌帳號矩陣，不是個人攤商",
+ why:"這家老字號把灌腸、風乾這些傳統工序拍成直播，一場活動就賣了 2,200 多萬元。",
+ learn:"把傳統工藝的細節動作直接拍出來，讓「手藝」本身變賣點。",
+ url:"https://www.chinanationalbrand.org.cn/#/detail?id=47441"},
+
+// ---- 醃漬 ----
+{cat:"pickle", name:"羅敏（德清醃貨）", region:"cn", platform:"第三方報導", type:"講故事",
+ why:"開工第一天就接到 1,200 箱禮盒訂單，因為老顧客願意先訂 3 年份。",
+ learn:"淡季主動跟熟客聊「先訂起來、之後再取貨」。",
+ url:"https://www.163.com/dy/article/HR4C6OUB0512GTK3.html"},
+{cat:"pickle", name:"狗寶奶奶（咸菜攤）", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"83 歲的她賣咸菜，一碗只要 4 元，天天有人排隊上百公尺。",
+ learn:"手機直接拍「今天出攤排隊的隊伍」。",
+ url:"https://www.163.com/dy/article/JQLB4HNP0534B5BK.html"},
+
+// ---- 飲料甜品 ----
+{cat:"drink", name:"豆花莊（寧夏夜市）", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"黃仁勳、張忠謀都去吃過，因為這間 60 年老店的料幾乎全部自己做。",
+ learn:"把「我們的料都自己做、不加什麼」直接講清楚，讓老實變成賣點。",
+ url:"https://wanteatfood.com/52051"},
+{cat:"drink", name:"婆婆糖水店", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"70 歲阿婆擺攤 12 年，每天只賣 5 款糖水，堅持自己熬到半夜 2 點。",
+ learn:"拍自己試吃、確認合格的畫面，就是最好的品質保證。",
+ url:"https://www.thepaper.cn/newsDetail_forward_3429690"},
+{cat:"drink", name:"長橋溪飲品店", region:"cn", platform:"抖音／小紅書", type:"講故事＋教知識",
+ why:"gelato 冰淇淋話題全網被看了好幾億次，因為老闆 8 塊錢就做出義大利工藝。",
+ learn:"把家族傳承或拜師學藝的故事講出來，用「銅板價也有真功夫」當賣點。",
+ url:"https://www.sohu.com/a/788164740_121627717"},
+
+// ---- 早餐 ----
+{cat:"breakfast", name:"威美早餐店", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"顧客模仿老闆的口頭禪拍成影片，在網路上瘋傳，吸引很多人特地去吃。",
+ learn:"平常就把招牌動作、口頭禪講清楚，萬一被路人拍到才有東西可傳播。",
+ url:"https://ifoodie.tw/restaurant/620baaba7cc7fc5442ba4e7b-%E5%A8%81%E7%BE%8E%E6%97%A9%E9%A4%90%E5%BA%97"},
+{cat:"breakfast", name:"董阿姨（肉沫煎餅）", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"67 歲的她連續 36 年凌晨 2 點出攤，一天賣 300 個煎餅。",
+ learn:"拍一支「我做這行第幾年」的自我介紹，資歷本身就是話題。",
+ url:"http://www.workercn.cn/50000264/202207/05/20220705103253623672784.shtml"},
+
+// ---- 小吃熟食 ----
+{cat:"snack", name:"朱碧瓊（肥腸粉女王）", region:"cn", platform:"第三方報導", type:"講故事",
+ why:"北京、上海、香港的遊客都專程跑來吃，因為她 63 歲賣了 40 年同一碗粉。",
+ learn:"讓客人自然說出「吃了幾十年」這種真心話，比自己講更有說服力。",
+ url:"https://www.thepaper.cn/newsDetail_forward_27066772"},
+{cat:"snack", name:"黃姐（舉重夫婦烤鹵店）", region:"cn", platform:"第三方報導", type:"講故事",
+ why:"她曾是全國舉重冠軍，退役後改行賣鹵味，一天能賣出 30 隻烤鴨。",
+ learn:"把自己原本的職業、身份講成開場白，反差就是天然的個人故事。",
+ url:"https://www.sohu.com/a/462249675_121066854"},
+{cat:"snack", name:"晨曦家味", region:"cn", platform:"抖音", type:"曬過程",
+ why:"半年內被看了 233 萬次，因為老闆每天凌晨 4 點就起床採購。",
+ learn:"把凌晨進貨、備料這種最累的時段直接開鏡拍給客人看。",
+ url:"https://baby.ifeng.com/c/8kiMjiyAA2v"},
+{cat:"snack", name:"王凱陽水煎包店", region:"cn", platform:"第三方視角", type:"講故事",
+ why:"一位路過的網約車司機隨手拍下排隊畫面，影片就被看了上千萬次。",
+ learn:"讓常客或路過的人自然拍下你開店前排隊、出爐瞬間的畫面。",
+ url:"https://www.shobserver.com/wx/detail.do?id=1081297"},
+{cat:"snack", name:"重慶渝北雙龍路滷菜店", region:"cn", platform:"抖音", type:"曬過程",
+ why:"10 多萬人追蹤這間只有 10 坪的小店，老闆娘每天進貨到滷製全部親手做。",
+ learn:"用手機記錄自己從進貨到出攤的完整流程，不用等店面裝潢好看才開始拍。",
+ url:"https://www.sohu.com/a/482603569_121119045"},
+
+// ---- 糕餅麵包 ----
+{cat:"bakery", name:"美香齋烘焙坊", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"老闆 20 多年來每天深夜送麵包給街友，這件事最近在網路上熱傳。",
+ learn:"把「賣剩的東西怎麼處理」這件事拍出來，不用等做好事才拍。",
+ url:"https://www.ctee.com.tw/news/20260921701363-431401"},
+{cat:"bakery", name:"彭建軍（蛋烘糕）", region:"cn", platform:"第三方報導", type:"曬過程",
+ why:"走紅後客人排隊排到凌晨 3 點，因為他同一款蛋烘糕做了 20 年。",
+ learn:"把備料、擦拭工作檯這些重複動作直接拍下來。",
+ url:"https://news.china.com/socialgd/10000169/20251025/48936507.html"},
+{cat:"bakery", name:"六元麵包攤", region:"cn", platform:"第三方報導", type:"聊觀點",
+ why:"被搶購到「一夜沒睡趕工」，老闆卻不趁機漲價、也不加防腐劑。",
+ learn:"被搶購時先講清楚「今天做多少、賣完就是賣完」。",
+ url:"https://www.163.com/dy/article/KH3QEOTM0550B6IS.html"},
+
+// ---- 茶 ----
+{cat:"tea", name:"八曜和茶 Hachiyo Tea", region:"tw", platform:"Threads", type:"聊觀點",
+ note:"連鎖飲品品牌，類比參考（不是市場攤位）",
+ why:"5.2 萬人追蹤他們，靠自嘲、到處留言互動的風格養出大帳號。",
+ learn:"老闆／小編用真實個性回覆留言，看到有人提到自己就去留言。",
+ url:"https://www.threads.com/@8yotea"},
+{cat:"tea", name:"溫心虹（紫金茶葉）", region:"cn", platform:"抖音＋微信", type:"教知識",
+ note:"受邀推廣茶葉的網紅，非自營茶行（誠實註記）",
+ why:"超過 100 萬人追蹤她，因為她教大家怎麼泡茶、怎麼喝茶。",
+ learn:"錄一支「教客人怎麼泡這款茶」的知識型短片。",
+ url:"https://www.dutenews.com/n/article/177329"},
+{cat:"tea", name:"李雲溪（信陽茶葉）", region:"cn", platform:"第三方報導", type:"教知識",
+ why:"她一年幫家鄉賣出 12 萬斤茶葉，還教全村的人一起做直播。",
+ learn:"找隔壁攤位互相拍對方的日常，把整條市場的流量做大。",
+ url:"https://www.thepaper.cn/newsDetail_forward_17954635"},
+
+// ---- 花 ----
+{cat:"flower", name:"阿羅（賣花 16 年）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"11.5 萬人追蹤他，三天就賣出近 4 萬把花。",
+ learn:"每天進貨、綁花束的日常直接開直播拍。",
+ url:"https://cn.chinadaily.com.cn/a/202004/27/WS5ea6a4c9a310eec9c72b5b04.html"},
+{cat:"flower", name:"植迷不誤（范松濤）", region:"cn", platform:"抖音", type:"教知識",
+ why:"21 萬人追蹤他，近一個月就賣出 3.3 萬單，回購率高達八成。",
+ learn:"教客人怎麼照顧、怎麼用商品，順便把貨帶出去。",
+ url:"https://news.sina.com.cn/sx/2022-09-05/detail-imizmscv9147922.shtml"},
+{cat:"flower", name:"詩蝶", region:"cn", platform:"抖音", type:"講故事＋曬過程",
+ why:"上百萬人追蹤她，單日就賣出 15 萬支鮮花。",
+ learn:"講出「為什麼會做這行」的轉行故事，帶出對商品的熱情。",
+ url:"https://m.tech.china.com/redian/2024/0320/032024_1495018.html"},
+
+// ---- 五金 ----
+{cat:"hardware", name:"北投超狂五金行（余老闆）", region:"tw", platform:"第三方報導", type:"講故事",
+ why:"開店 47 年，客人隨口說要什麼，老闆 3 分鐘內就能找到。",
+ learn:"拍一段「客人隨口說要什麼，老闆秒找到」的過程，展示真本事。",
+ url:"https://today.line.me/tw/v3/article/oqQ21Dw"},
+{cat:"hardware", name:"北流民樂五金店老闆", region:"cn", platform:"第三方視角", type:"講故事",
+ why:"一支影片 5 萬人按讚，因為老闆免費幫身障街友換滑板輪。",
+ learn:"日常順手幫客人一個忙，可能被路過的人拍下變流量。",
+ url:"https://www.sohu.com/a/422952891_262890"},
+{cat:"hardware", name:"凌海市李宏五金水暖", region:"cn", platform:"抖音", type:"曬過程",
+ why:"235 萬人追蹤他，起號才 3 個月就衝到 75 萬人，完全不打光、不寫台詞。",
+ learn:"直接用手機拍自己整理、秤重、找零的日常動作，不用設計台詞。",
+ url:"https://www.woshipm.com/it/6241818.html"},
+{cat:"hardware", name:"劉洪海（尋人五金行）", region:"cn", platform:"抖音＋快手", type:"講故事",
+ why:"20 多萬人追蹤他，因為他 4 年來發了上萬條幫人找失散家人的影片。",
+ learn:"把自己在市場裡順手幫客人一個忙的瞬間拍下來，累積成固定人設。",
+ url:"https://news.qq.com/rain/a/20241013A014U200"},
+{cat:"hardware", name:"邯鄲醬油哥（陳好天）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"10 萬人追蹤他，因為他用第一人稱拍「打醬油」，店裡醬油銷量也跟著變 5 倍。",
+ learn:"挑店裡一個最日常的動作（秤重、裝袋、找零），固定用第一視角反覆拍。",
+ url:"https://baijiahao.baidu.com/s?id=1860003016857410646&wfr=spider&for=pc"},
+
+// ---- 服飾布料 ----
+{cat:"cloth", name:"永樂市場冠輝布行", region:"tw", platform:"Threads", type:"教知識",
+ note:"類比參考（不是市場攤位）",
+ why:"2,100 人追蹤他，靠一篇「第一次來永樂買布」的教學貼文吸引大家收藏。",
+ learn:"用「第一次來先收藏這篇」開頭，加上編號式清單。",
+ url:"https://www.threads.com/@sxk423"},
+{cat:"cloth", name:"周欣欣（欣欣屋穿搭）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"一場直播就賣光 2 萬多件庫存，賣出破百萬元。",
+ learn:"把「清庫存」拍成限時活動直播，營造急迫感。",
+ url:"http://biz.ifeng.com/c/7wf0KeEmtXu"},
+{cat:"cloth", name:"新小晴", region:"cn", platform:"抖音", type:"曬過程",
+ why:"她找了十家攤位老闆一起直播，單日賣出 122 萬元，是平常的 10 倍。",
+ learn:"找附近幾個攤位一起搞一場直播，互相導流量。",
+ url:"https://m.dutenews.com/n/article/355112"},
+{cat:"cloth", name:"三妹（和諧三妹服飾）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"三天就爆單，一天能賣十幾萬元。",
+ learn:"生意淡季、庫存壓力大時，可以試試開直播賣貨。",
+ url:"http://news.hnr.cn/202003/29/106902.html"},
+
+// ---- 修改衣服 ----
+{cat:"tailor", name:"方家服裝工作室", region:"tw", platform:"Threads", type:"教知識＋曬過程",
+ why:"4,500 人追蹤他，靠改衣服前後的對比照就養出這麼多粉絲。",
+ learn:"一件衣服講「客人想要什麼→我怎麼改→改完多一種穿法」。",
+ url:"https://www.threads.com/@fangshome"},
+{cat:"tailor", name:"張突然（裁縫小叔）", region:"cn", platform:"抖音", type:"講故事",
+ why:"200 萬人叫他裁縫小叔，因為他自學裁縫 3 年就登上紐約時裝周。",
+ learn:"把自學、土法煉鋼摸索手藝的過程講出來。",
+ url:"https://www.sohu.com/picture/428132531"},
+{cat:"tailor", name:"灰姑娘的裁縫鋪（仇佩佩）", region:"cn", platform:"抖音", type:"講故事",
+ why:"1,300 多萬人追蹤她，把改衣服拍成有頭有尾的小故事，還得了獎。",
+ learn:"把「幫客人改一件衣服」拍成有頭有尾的小故事，不只單純展示手藝。",
+ url:"https://m.sohu.com/a/393548884_120469038"},
+{cat:"tailor", name:"黃夢琴（夢子服飾店）", region:"cn", platform:"抖音", type:"教知識＋曬過程",
+ why:"從幾十人追蹤成長到近 20 萬人，把老客人的舊嫁妝布料改造成旗袍。",
+ learn:"挑一件老客人留下的舊布料、舊衣，拍「改造前→改造後」對比。",
+ url:"https://jx.ifeng.com/c/8WlOSuciRMa"},
+{cat:"tailor", name:"鄭安政（裁縫鋪起家）", region:"cn", platform:"抖音", type:"講故事",
+ why:"25 萬人追蹤他，因為他分享自己從裁縫鋪白手起家的故事。",
+ learn:"講清楚自己「當初為什麼做這行、第一筆生意怎麼來的」。",
+ url:"https://m.163.com/dy/article/L5BRT18E0519APGA.html"},
+
+// ---- 鞋 ----
+{cat:"shoe", name:"凱茲 Keizu", region:"tw", platform:"Threads", type:"曬過程＋講故事",
+ note:"類比參考（不是市場攤位）",
+ why:"5 萬人追蹤他，因為他把開店過程的糗事直接拍出來，不刻意裝完美。",
+ learn:"把開店過程中的糗事、碎念直接拍出來。",
+ url:"https://www.threads.com/@keizu_shoes"},
+{cat:"shoe", name:"忠良修鞋（雷忠良）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"47 年老師傅的新帳號，3、4 天就被看了 35 萬次。",
+ learn:"讓熟客順手幫忙側拍你工作的畫面，就是內容。",
+ url:"https://news.fznews.com.cn/fzyw/20260309/4O8aQIBIXN.shtml"},
+{cat:"shoe", name:"和鞋有緣（張國軍夫婦）", region:"cn", platform:"多平台", type:"曬過程＋講故事",
+ why:"十幾萬人追蹤他們，一支影片被看了超過 200 萬次，因為他們免費教身障人士修鞋技能。",
+ learn:"把教人、幫助人的過程也拍進影片，不只拍手藝。",
+ url:"http://hunan.voc.com.cn/news/202211/23192992.html"},
+{cat:"shoe", name:"隆祥鞋店（姜龍、張春月夫婦）", region:"cn", platform:"多平台", type:"曬過程",
+ why:"跨平台累積 30 多萬人追蹤，一支影片就快破千萬次觀看。",
+ learn:"修東西、做工時直接架手機直播或側錄。",
+ url:"https://www.sohu.com/a/350104471_771385"},
+
+// ---- 鐘錶 ----
+{cat:"watch", name:"安格時計 Anchortime", region:"tw", platform:"Threads", type:"教知識＋聊觀點",
+ why:"22.5 萬人追蹤他，開店 10 年，常常用「客人常常問我」的方式教大家。",
+ learn:"用「客人常常問我…」開場，接一句俏皮話，再條列重點。",
+ url:"https://www.threads.com/@anchor_time.tw"},
+{cat:"watch", name:"大表姐阿媛（沉浸式修表）", region:"cn", platform:"抖音", type:"曬過程",
+ why:"上百萬人追蹤她，一支修表影片被看了超過 3,000 萬次，全程沒有旁白。",
+ learn:"找一支狀況特別的手錶，全程不加旁白，只拍手部特寫修復過程。",
+ url:"https://news.jstv.com/a/20221111/d8b4420292eb45e28b3f0a08516c0639.shtml"},
+{cat:"watch", name:"長沙品冠表行", region:"cn", platform:"抖音", type:"曬過程＋教知識",
+ why:"11 萬多人追蹤他，簡介直接寫「經營 20 年、專業維修」。",
+ learn:"帳號簡介直接寫「經營X年＋專長項目」，開門見山建立信任。",
+ url:"https://www.douyin.com/user/MS4wLjABAAAAVpSmMHo1d45LbdsZp_tuUpLay6W6PRWUISoGPIs8etI"},
+
+// ---- 理髮 ----
+{cat:"barber", name:"男子漢理髮廳｜廳主雞哥", region:"tw", platform:"Threads", type:"講故事＋聊觀點",
+ why:"近 4,000 人追蹤他，靠祖傳三代的資歷配上誇張的自我介紹讓人記住他。",
+ learn:"給自己取一個誇張但好記的稱號，搭配真實的老店資歷。",
+ url:"https://www.threads.com/@b.a.mbarbershop"},
+{cat:"barber", name:"髮型師曉華", region:"cn", platform:"抖音", type:"講故事＋教知識",
+ why:"14 天就多了 400 萬人追蹤她，因為她真的聽懂客人要什麼髮型再剪。",
+ learn:"真心聽客人描述想要的樣子、照做，拍「說了什麼／剪出什麼」對比。",
+ url:"https://finance.sina.cn/2024-11-14/detail-incvzmwq1260053.d.html"},
+{cat:"barber", name:"山城小栗旬（Tony老師）", region:"cn", platform:"B站", type:"曬過程",
+ why:"一個月多了 200 萬人追蹤他，因為他專拍男生剪髮前後的強烈對比。",
+ learn:"拍改造前後的強烈對比，讓效果自己說話。",
+ url:"http://news.sohu.com/a/526423024_121119287"},
+{cat:"barber", name:"湖南女理髮師", region:"cn", platform:"抖音", type:"曬過程",
+ why:"一夜之間多了數十萬人追蹤她，因為她「剪一個帥一個」。",
+ learn:"多花時間聽客人到底要什麼樣子，別急著自己主導風格。",
+ url:"https://www.163.com/dy/article/JG54CNTE05566SEJ.html"},
+
+// ---- 中藥 ----
+{cat:"herb", name:"黃長生藥行｜迪化街 70 年老藥行", region:"tw", platform:"IG", type:"講故事",
+ why:"近 700 人追蹤他，這間 70 年老藥行由三代姊弟接班做包裝和電商。",
+ learn:"老字號名稱本身當賣點，內容主打「傳承＋現代化包裝」對比。",
+ url:"https://www.instagram.com/huang_chang_sheng_est.1953/"},
+{cat:"herb", name:"赤崁中藥行 ChiKan Pharmacy Bar", region:"tw", platform:"IG", type:"聊觀點＋曬過程",
+ why:"1.2 萬人追蹤他，靠「中藥行×酒吧」這種反差組合讓人一次記住。",
+ learn:"找一個反差詞組合自己的老行業和一個年輕人熟悉的詞。",
+ url:"https://www.instagram.com/chikan_pharmacy_bar/"},
+{cat:"herb", name:"元信蔘藥行＿喵喵", region:"tw", platform:"Threads＋IG", type:"曬過程",
+ why:"近 10 萬人追蹤這間迪化街中藥行，靠養一隻店貓、單純曬牠的日常就衝出來的。",
+ learn:"幫攤位養一隻吉祥物（貓／狗／玩偶），單純曬牠的日常就能開始。",
+ url:"https://www.threads.com/@meow_meow_140"}
+];
+
+// ===== 邏輯區 =====
+function esc(s){ return String(s).replace(/[&<>"]/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch];}); }
+var state = { cat:null };
+var app = document.getElementById("app");
+
+function countFor(id){
+  var n=0; for(var i=0;i<CARDS.length;i++){ if(CARDS[i].cat===id){ n++; } } return n;
+}
+function cardsFor(id){
+  var out=[]; for(var i=0;i<CARDS.length;i++){ if(CARDS[i].cat===id){ out.push(CARDS[i]); } } return out;
+}
+
+function homeHTML(){
+  var h = "";
+  h += '<h1>別人怎麼拍</h1><p class="sub">先點你賣什麼，看 3 個人怎麼拍。</p>';
+  h += '<div class="catgrid">';
+  for(var i=0;i<CATS.length;i++){
+    var c = CATS[i], n = countFor(c.id);
+    h += '<button class="catbtn" data-cat="'+c.id+'">'+esc(c.label)+'<span class="cnt">'+n+' 個例子</span></button>';
+  }
+  h += '</div>';
+  h += footHTML();
+  return h;
+}
+
+function catHTML(id){
+  var c = null; for(var i=0;i<CATS.length;i++){ if(CATS[i].id===id){ c=CATS[i]; } }
+  var list = cardsFor(id);
+  var h = '<button class="back" id="tohome">← 回題材</button>';
+  h += '<h2>賣'+esc(c.label)+'的，看這幾個</h2>';
+  if(list.length<3){ h += '<div class="warn">這個題材目前只找到 '+list.length+' 個有證據的例子，不夠 3 個，先給你看看。</div>'; }
+  else { h += '<p class="catnote">'+list.length+' 個例子，點下面卡片最下面的按鈕看他的影片。</p>'; }
+  for(var i=0;i<list.length;i++){ h += cardHTML(list[i]); }
+  h += footHTML();
+  return h;
+}
+
+function cardHTML(d){
+  var h = '<div class="card">';
+  h += '<div class="name">'+esc(d.name)+'</div>';
+  h += '<div class="tags">';
+  h += '<span class="tag region'+(d.region==="cn"?" cn":"")+'">'+(d.region==="cn"?"中國大陸":"台灣")+'</span>';
+  h += '<span class="tag plat">'+esc(d.platform)+'</span>';
+  h += '<span class="tag type">'+esc(d.type)+'</span>';
+  h += '</div>';
+  if(d.note){ h += '<div class="note">⚠ '+esc(d.note)+'</div>'; }
+  h += '<div class="row"><b>他紅在哪</b>'+esc(d.why)+'</div>';
+  h += '<div class="row"><b>你可以學這招</b>'+esc(d.learn)+'</div>';
+  h += '<a class="go" href="'+esc(d.url)+'" target="_blank" rel="noopener">看他的影片 →</a>';
+  h += '</div>';
+  return h;
+}
+
+function footHTML(){
+  var h = '<div class="foot">';
+  h += '<a class="btn ghost btn" style="background:#FFFFFF;color:#1F6F4A;border:3px solid #1F6F4A" href="../">← 回首頁</a>';
+  h += '<a class="btn orange" href="https://shuhaochang2023.github.io/haokang/nine/">打開九宮格 →</a>';
+  h += '</div><footer class="pagefoot">好康傳出來｜做得好，也要有人知道</footer>';
+  return h;
+}
+
+function render(){
+  var h = state.cat ? catHTML(state.cat) : homeHTML();
+  app.innerHTML = h;
+  window.scrollTo(0,0);
+  bind();
+}
+function bind(){
+  var bs = document.querySelectorAll("[data-cat]");
+  for(var i=0;i<bs.length;i++){ bs[i].onclick = function(){ state.cat = this.getAttribute("data-cat"); render(); }; }
+  var q = document.getElementById("tohome");
+  if(q){ q.onclick = function(){ state.cat = null; render(); }; }
+}
+render();
+</script>
+</body>
+</html>
